@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "store_item.hpp"
+#include "store-item.hpp"
 
 StoreItem::StoreItem(): name("") {}
 
