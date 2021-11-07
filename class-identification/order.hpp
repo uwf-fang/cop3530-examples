@@ -3,21 +3,25 @@
 
 #include <string>
 #include <vector>
+#include "item.hpp"
 
-class Order
-{
-  // items on menu
-  // list of name and quantity pairs
-  std::vector<std::pair<std::string, int> > items;
-  // order ready flag
+using std::vector;
+using std::string;
+
+class Order {
+  int id;
+  vector<Item> items;
   bool ready;
-  // order delivered flag
   bool delivered;
+  bool paid;
 
 public:
   Order();
-  Order(std::vector<std::pair<std::string, int> > items);
+  void add(string name, int quantity);
+  bool remove(string name, int quantity);
+  void ready();
   void deliver();
-  void print();
+  void pay();
+  string show();
 };
 #endif

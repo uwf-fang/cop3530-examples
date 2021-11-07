@@ -6,16 +6,28 @@
 #include "order.hpp"
 #include "menu.hpp"
 
+using std::string;
+using std::vector;
+
+
 class Restaurant
 {
 private:
+  string name;
   Menu menu;
-  std::vector<Order> orders;
+  vector<Order> pendingOrders;
+  vector<Order> finishedOrders;
 
 public:
-  Restaurant(std::string name);
-  void showMenu();
-  void placeOrder(Order order);
+  Restaurant();
+  Restaurant(string name);
+  void setName(sting name);
+  string getName();
+  void setMenu(Menu menu);
+  string showMenu();
+  void place(Order order);
+  void deliver(Order order);
+  void pay(Order order);
 };
 
 #endif

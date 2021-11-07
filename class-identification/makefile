@@ -1,8 +1,5 @@
-driver: restaurant.o menu.o order.o
-	g++ -o $@ @^
+driver: driver.o restaurant.o menu.o order.o item.o menuitem.o
+	g++ -o $@ $^
 
-restaurant.o:
-
-menu.o:
-
-order.o:
+%.o: %.cpp
+	g++ -c -o $@ $<

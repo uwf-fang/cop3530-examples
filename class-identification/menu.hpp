@@ -3,17 +3,18 @@
 
 #include <string>
 #include <vector>
+#include "menuitem.cpp"
 
-class Menu
-{
-  // items on menu
-  // list of name and price pairs
-  std::vector<std::pair<std::string, double> > items;
+using std::vector;
+using std::string;
 
+class Menu {
+private:
+  vector<MenuItem> items;
 public:
-  Menu(std::vector<std::pair<std::string, double> > items);
-  bool deliver();
-  void print();
+  void add(string name, double price);
+  void remove(string name);
+  string show();
 };
 
 #endif
