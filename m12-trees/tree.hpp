@@ -1,4 +1,5 @@
-
+#ifndef TREE_HPP
+#define TREE_HPP
 template <class T>
 class TreeNode {
  public:
@@ -34,3 +35,5 @@ class BinaryTree {
   void insert(T value);
   void remove(T value);
 };
+
+#endif
