@@ -33,7 +33,8 @@ template <class T>
 void MinHeap<T>::expend() {
   maxLength += 100;
   T *newArr = new T[maxLength];
-  for (int i = 0; i < maxLength; i++) newArr[i] = array[i];
+  for (int i = 0; i < maxLength; i++)
+    newArr[i] = array[i];
   delete[] array;
   array = newArr;
 }
@@ -88,7 +89,7 @@ void MinHeap<T>::push(T value) {
 
 template <class T>
 T MinHeap<T>::pop() {
-  int value = array[0];
+  T value = array[0];
   array[0] = array[length - 1];
   length--;
   percolateDown(0);
