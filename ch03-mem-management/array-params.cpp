@@ -1,3 +1,6 @@
+// Not covered in class
+// very useful
+
 #include <iostream>
 using namespace std;
 

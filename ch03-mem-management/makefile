@@ -1,4 +1,4 @@
-TARGETS = c-arrays ref-pointer grid-driver
+TARGETS = array-params ref-pointer object-array grid-driver
 CXXFLAGS = -Wall
 RM = rm
 
