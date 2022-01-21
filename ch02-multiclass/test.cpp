@@ -1,10 +1,9 @@
+#include "store.hpp"
+#include "store-item.hpp"
 #include <iostream>
 using namespace std;
 
-#include "store.hpp"
-#include "store_item.hpp"
-
-void test_store_item() {
+void testStoreItem() {
   StoreItem item1("Apple");
   item1.print();
   StoreItem item2("apple");
@@ -15,17 +14,15 @@ void test_store_item() {
     cout << "They are not equal!\n";
 }
 
-void test_store() {
+void testStore() {
   Store myStore("Test Store");
   myStore.addItem(StoreItem("Apple"));
   myStore.addItem(StoreItem("Banana"));
-
   myStore.print();
 }
 
-int main()
-{
-  test_store_item();
-  // test_store();
+int main() {
+  // testStoreItem();
+  testStore();
   return 0;
 }

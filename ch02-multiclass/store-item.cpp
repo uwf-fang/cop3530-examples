@@ -1,7 +1,6 @@
+#include "store-item.hpp"
 #include <iostream>
 using namespace std;
-
-#include "store-item.hpp"
 
 StoreItem::StoreItem(): name("") {}
 
@@ -10,11 +9,11 @@ StoreItem::StoreItem(const string & name) {
   // this->print();    // access member functions (methods)
 }
 
-string StoreItem::GetName() const {
+string StoreItem::getName() const {
   return this->name;
 }
 
-void StoreItem::SetName(string name) {
+void StoreItem::setName(string name) {
   this->name = name;
 }
 

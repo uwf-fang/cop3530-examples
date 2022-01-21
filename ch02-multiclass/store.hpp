@@ -1,9 +1,9 @@
 #ifndef STORE_H
 #define STORE_H
 
+#include "store-item.hpp"
 #include <string>
 #include <vector>
-#include "store_item.hpp"
 
 class Store
 {

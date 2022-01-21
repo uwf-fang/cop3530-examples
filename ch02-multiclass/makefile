@@ -1,18 +1,17 @@
 CXX = g++
-FLAGS = -Wall -std=c++11 -g
+FLAGS = -Wall -std=c++11
 
-store_print: driver.o store.o store_item.o
+test: test.o store.o store-item.o
 	$(CXX) -o $@ $^
 
-driver.o: driver.cpp
-	$(CXX) $(FLAGS) -c $^
+test.o: test.cpp store.hpp store-item.hpp
+	$(CXX) $(FLAGS) -c $<
 
 store.o: store.cpp store.hpp
-	$(CXX) $(FLAGS) -c $^
+	$(CXX) $(FLAGS) -c $<
 
-store_item.o: store_item.cpp store_item.hpp
-	$(CXX) $(FLAGS) -c $^
+store-item.o: store-item.cpp store-item.hpp
+	$(CXX) $(FLAGS) -c $<
 
 clean:
-	rm -rf *.dSYM
-	rm -f *.o *.gc* store_print
+	rm -rf *.o *.gc* test *.dSYM

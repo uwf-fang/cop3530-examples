@@ -1,4 +1,4 @@
-#include "threeintsfcts.h"
+#include "threeintsfcts.hpp"
 
 int ThreeIntsSum(int num1, int num2, int num3)
 {
