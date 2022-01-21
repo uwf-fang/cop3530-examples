@@ -10,7 +10,7 @@ frequently.
   snippets only.
 + File organizations
 
-  * directory name starts with m# represent module # (contents delivered in
-    Week # of the semester) followed by a short name indicates the topic of
-    the module
-  * if the module number does not match, refer to the name
+  * directory name starts with ch# represent module # (contents related to the
+    chapter # in the book) followed by a short name indicates the topic of the
+    module
+  * if the chapter number does not match, refer to the name
