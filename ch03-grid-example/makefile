@@ -1,4 +1,4 @@
-TARGETS = array-params ref-pointer object-array
+TARGETS = grid-driver
 CXXFLAGS = -Wall -std=c++11
 RM = rm -rf
 
@@ -6,8 +6,8 @@ RM = rm -rf
 
 all : $(TARGETS)
 
-$(TARGETS) : % : %.o
-	g++ -o $@ $<
+grid-driver : grid-driver.o grid.o
+	g++ -o $@ $^
 
 %.o : %.cpp
 	g++ -c -o $@ $< $(CXXFLAGS)
