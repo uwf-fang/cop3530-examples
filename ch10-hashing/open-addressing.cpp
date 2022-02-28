@@ -4,7 +4,7 @@
  * Use simple linear probing
  */
 
-#include "openchain.hpp"
+#include "open-addressing.hpp"
 
 #include <iostream>
 

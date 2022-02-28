@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include "openchain.hpp"
+#include "open-addressing.hpp"
 
 using namespace std;
 
