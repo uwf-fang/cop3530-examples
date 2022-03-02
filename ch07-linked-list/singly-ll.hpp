@@ -1,5 +1,5 @@
-#ifndef LIST_HPP
-#define LIST_HPP
+#ifndef SINGLY_LL_HPP
+#define SINGLY_LL_HPP
 
 #include <iostream>
 
@@ -10,16 +10,6 @@ class Node {
   Node<T> * next;
   Node<T>();
   Node<T>(T value): value(value) {};
-};
-
-template<class T>
-class BidirectionalNode {
- public:
-  T value;
-  BidirectionalNode * next;
-  BidirectionalNode * prev;
-  BidirectionalNode();
-  BidirectionalNode(T value): value(value) {}
 };
 
 // singly-linked list
@@ -43,7 +33,7 @@ class SinglyLinkedList {
     }
   }
   void prepend(Node<T> * node);
-  void insert(Node<T> * node, Node<T> * newNode);
+  void insertAfter(Node<T> * node, Node<T> * newNode);
   // remove the specified node
   void remove(Node<T> *node);
   Node<T> *search(T value);
@@ -88,7 +78,7 @@ void SinglyLinkedList<T>::prepend(Node<T> * node) {
 }
 
 template <class T>
-void SinglyLinkedList<T>::insert(Node<T> * node, Node<T> * newNode) {
+void SinglyLinkedList<T>::insertAfter(Node<T> * node, Node<T> * newNode) {
   if (head == nullptr) append(node);
   else if (node == tail) {
     tail->next = newNode;
@@ -134,17 +124,7 @@ Node<T> * SinglyLinkedList<T>::search(T value) {
 }
 
 
-// doubly-linked list
-// a head pointer, a tail pointer
-// a next pointer, a prev pointer in node class
-template <class T>
-class DoublyLinkedList {
- private:
-  BidirectionalNode<T> * head;
-  BidirectionalNode<T> * tail;
- public:
-  // ...
-};
+
 
 
 
