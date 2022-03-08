@@ -1,15 +1,13 @@
 #ifndef TREE_HPP
 #define TREE_HPP
 template <class T>
-class TreeNode {
- public:
+struct TreeNode {
   T value;
   vector<TreeNode *> children;
 };
 
 template <class T>
-class BinaryTreeNode {
- public:
+struct BinaryTreeNode {
   T value;
   BinaryTreeNode *left;
   BinaryTreeNode *right;
@@ -18,7 +16,6 @@ class BinaryTreeNode {
 
 template <class T>
 class Tree {
- private:
   TreeNode *root;
  public:
   void insert(T value);
@@ -29,7 +26,6 @@ class Tree {
 
 template <class T>
 class BinaryTree {
- private:
   BinaryTreeNode *root;
  public:
   void insert(T value);

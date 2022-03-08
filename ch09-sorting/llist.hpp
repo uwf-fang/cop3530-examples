@@ -1,3 +1,5 @@
+// Linked list with sorting algorithm
+
 #ifndef LIST_HPP
 #define LIST_HPP
 
