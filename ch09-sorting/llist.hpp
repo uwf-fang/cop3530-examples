@@ -69,12 +69,7 @@ int LinkedList<T>::size() {
 
 template <class T>
 void LinkedList<T>::printAll() {
-  Node<T> *current = head;
-  while (current->next != nullptr) {
-    std::cout << (current->value) << ' ';
-    current = current->next;
-  }
-  std::cout << (current->value) << std::endl;
+  printAll(head);
 }
 
 template <class T>
