@@ -1,7 +1,9 @@
 #include "graph.hpp"
+
 #include <iostream>
 #include <string>
 #include <vector>
+#include <climits>
 
 using namespace std;
 
@@ -19,8 +21,7 @@ int main() {
   cout << "Initialization done\n";
 
   vector<int> distances = shortestPaths(graph, "A");
-  for (int dist: distances)
-    cout << dist << " ";
+  for (int dist : distances) cout << dist << " ";
   cout << endl;
   return EXIT_SUCCESS;
 }
@@ -38,7 +39,6 @@ int findMinVertex(vector<int> &distances, vector<bool> &visited) {
   return minIndex;
 }
 
-
 vector<int> shortestPaths(GraphAdjList &graph, string srcLabel) {
   int numVertices = graph.getNumVertices();
   vector<int> distances(numVertices, INT_MAX);
@@ -52,13 +52,11 @@ vector<int> shortestPaths(GraphAdjList &graph, string srcLabel) {
     int v = findMinVertex(distances, visited);
     visited.at(v) = true;
     for (int j = 0; j < numVertices; j++)
-      if (!visited.at(j) &&
-          graph.getWeight(v, j) != -1 &&
+      if (!visited.at(j) && graph.getWeight(v, j) != -1 &&
           distances.at(v) != INT_MAX &&
-          distances.at(v) + graph.getWeight(v, j) < distances.at(j))
-        {
-          distances.at(j) = distances.at(v) + graph.getWeight(v, j);
-        }
+          distances.at(v) + graph.getWeight(v, j) < distances.at(j)) {
+        distances.at(j) = distances.at(v) + graph.getWeight(v, j);
+      }
   }
 
   return distances;
