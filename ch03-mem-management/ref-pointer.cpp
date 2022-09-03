@@ -1,3 +1,6 @@
+/**
+ *  Compare reference and pointer types
+ */
 #include <iostream>
 using namespace std;
 

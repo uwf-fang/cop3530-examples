@@ -1,8 +1,8 @@
 #ifndef GRID_HPP
 #define GRID_HPP
 /**
- * Grid class to show how destructor should work
- *
+ * Grid class to demonstrate 2d dynamic array
+ *   rule of three methods are not all implemented
  */
 #include <cmath>
 
