@@ -4,19 +4,19 @@ RM = rm -rf
 
 all : $(TARGETS)
 
-test: test.o threeintsfcts.o
+test: test.o three-ints.o
 	g++ -o $@ $^
 
-test.o: test.cpp threeintsfcts.hpp
+test.o: test.cpp three-ints.hpp
 	g++ $(CXXFLAGS) -c $<
 
-main : main.o threeintsfcts.o
+main : main.o three-ints.o
 	g++ -o $@ $^
 
-main.o : main.cpp threeintsfcts.hpp
+main.o : main.cpp three-ints.hpp
 	g++ $(CXXFLAGS) -c $<
 
-threeintsfcts.o : threeintsfcts.cpp threeintsfcts.hpp
+three-ints.o : three-ints.cpp three-ints.hpp
 	g++ $(CXXFLAGS) -c $<
 
 clean :

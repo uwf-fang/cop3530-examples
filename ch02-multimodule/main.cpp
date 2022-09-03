@@ -1,4 +1,4 @@
-#include "threeintsfcts.hpp"
+#include "three-ints.hpp"
 #include <iostream>
 
 using namespace std;
