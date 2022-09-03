@@ -25,7 +25,7 @@ Building
 Tips
 ====
 + only use "using namespace ..." in .cpp file
-+ incremental development
++ incremental development flow suggestion
 
   * finish StoreItem class
   * write test code in driver

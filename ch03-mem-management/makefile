@@ -1,5 +1,5 @@
-TARGETS = array-params ref-pointer object-array
-CXXFLAGS = -Wall -std=c++11
+TARGETS = array-params pass-by-ref-pointer object-array
+CXXFLAGS = -Wall -std=c++14
 RM = rm -rf
 
 .PHONY: all clean

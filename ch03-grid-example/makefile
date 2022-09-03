@@ -1,5 +1,5 @@
 TARGETS = grid-driver
-CXXFLAGS = -Wall -std=c++11
+CXXFLAGS = -Wall -std=c++14
 RM = rm -rf
 
 .PHONY: all clean

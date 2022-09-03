@@ -1,7 +1,7 @@
 # This makefile is designed to compile single target multi-file projects
 
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -g # compilation flags
+CXXFLAGS = -std=c++14 -Wall -g # compilation flags
 LFLAGS =  # linking flags
 TARGET = sorting-test
 HEADERS = llist.hpp

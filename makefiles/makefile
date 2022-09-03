@@ -1,6 +1,6 @@
 TARGETS=main
 CXX=g++
-FLAGS=-std=c++11 -Wall
+FLAGS=-std=c++14 -Wall
 RM=rm -rf
 
 .PHONY: clean

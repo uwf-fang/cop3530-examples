@@ -1,5 +1,5 @@
 CXX = g++
-FLAGS = -Wall -std=c++11
+FLAGS = -Wall -std=c++14
 
 test: test.o store.o store-item.o
 	$(CXX) -o $@ $^
