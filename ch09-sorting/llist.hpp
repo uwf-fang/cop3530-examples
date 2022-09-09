@@ -61,7 +61,7 @@ int LinkedList<T>::size() {
   int size = 0;
   Node<T> *current = head;
   while (current != nullptr) {
-    size++;
+    ++size;
     current = current->next;
   }
   return size;

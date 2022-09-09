@@ -12,16 +12,16 @@ Grid::Grid() : matrix(nullptr) {}
 
 Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
   matrix = new Node *[rows];
-  for (int i = 0; i < rows; i++) {
+  for (int i = 0; i < rows; ++i) {
     matrix[i] = new Node[cols];
-    for (int j = 0; j < cols; j++) {
+    for (int j = 0; j < cols; ++j) {
       matrix[i][j].setVal(cols * i + j);
     }
   }
 }
 
 Grid::~Grid() {
-  for (int i = 0; i < rows; i++)
+  for (int i = 0; i < rows; ++i)
     delete [] matrix[i];
   delete [] matrix;
 }

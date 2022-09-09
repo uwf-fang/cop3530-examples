@@ -13,7 +13,7 @@ int main() {
 	int size = q.getLength();
 
 	// pop out one by one, expect to be in ascending order
-	for (int i = 0; i < size; i++) {
+	for (int i = 0; i < size; ++i) {
 		cout << q.pop() << " \n";
 	}
 }

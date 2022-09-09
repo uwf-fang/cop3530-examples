@@ -25,7 +25,7 @@ int main() {
   State *states1; // 1d array of object
 
   states1 = new State[100];
-  for (int i = 0; i < 100; i++)
+  for (int i = 0; i < 100; ++i)
     // make a temporary object (rvalue) and assign,
     // = should be overloaded if State class has dynamic date
     states1[i] = State("Alabama");
@@ -37,12 +37,12 @@ int main() {
   State **states2;
 
   states2 = new State *[100];
-  for (int i = 0; i < 100; i++)
+  for (int i = 0; i < 100; ++i)
     states2[i] = new State("Alabama");
 
   cout << states2[0]->getName() << endl;
 
-  for (int i = 0; i < 100; i++)
+  for (int i = 0; i < 100; ++i)
     delete states2[i];
   delete [] states2;
 }

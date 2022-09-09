@@ -44,7 +44,7 @@ class SinglyLinkedList {
     int count = 0;
     Node<T> * node = head;
     while (node != nullptr) {
-      count++;
+      ++count;
       node = node->next;
     }
     return count;

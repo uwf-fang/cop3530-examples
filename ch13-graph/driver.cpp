@@ -31,7 +31,7 @@ int findMinVertex(vector<int> &distances, vector<bool> &visited) {
   int minIndex = 0;
   int numVertices = distances.size();
 
-  for (int i = 0; i < numVertices; i++)
+  for (int i = 0; i < numVertices; ++i)
     if (!visited.at(i) && distances.at(i) <= min) {
       min = distances.at(i);
       minIndex = i;
@@ -47,11 +47,11 @@ vector<int> shortestPaths(GraphAdjList &graph, string srcLabel) {
   int srcID = graph.getId(srcLabel);
   distances.at(srcID) = 0;
 
-  for (int i = 0; i < numVertices - 1; i++) {
+  for (int i = 0; i < numVertices - 1; ++i) {
     cout << "Round " << (i + 1) << endl;
     int v = findMinVertex(distances, visited);
     visited.at(v) = true;
-    for (int j = 0; j < numVertices; j++)
+    for (int j = 0; j < numVertices; ++j)
       if (!visited.at(j) && graph.getWeight(v, j) != -1 &&
           distances.at(v) != INT_MAX &&
           distances.at(v) + graph.getWeight(v, j) < distances.at(j)) {

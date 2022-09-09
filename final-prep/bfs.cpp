@@ -44,7 +44,7 @@ vector<int> BFS(Graph G, int S) {
     queue.pop_back();
     result.push_back(currentVertex);
     vector<int> neighbors = G.getAdjacentVertexIDs(currentVertex);
-    for (int i = 0; i < neighbors.size(); i++) {
+    for (int i = 0; i < neighbors.size(); ++i) {
       int vertex = neighbors.at(i);
       if (!visited.at(vertex)) {
         queue.push_front(vertex);

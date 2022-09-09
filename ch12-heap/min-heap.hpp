@@ -33,7 +33,7 @@ template <class T>
 void MinHeap<T>::expend() {
   maxLength += 100;
   T *newArr = new T[maxLength];
-  for (int i = 0; i < maxLength; i++)
+  for (int i = 0; i < maxLength; ++i)
     newArr[i] = array[i];
   delete[] array;
   array = newArr;
@@ -62,7 +62,7 @@ void MinHeap<T>::percolateDown(int nodeIndex) {
   while (childIndex < length) {
     minValue = value;
     minIndex = -1;
-    for (int i = 0; i < 2 && i + childIndex < length; i++) {
+    for (int i = 0; i < 2 && i + childIndex < length; ++i) {
       if (array[i + childIndex] < minValue) {
         minValue = array[i + childIndex];
         minIndex = i + childIndex;
@@ -84,7 +84,7 @@ void MinHeap<T>::push(T value) {
   if (length >= maxLength) expend();
   array[length] = value;
   percolateUp(length);
-  length++;
+  ++length;
 }
 
 template <class T>

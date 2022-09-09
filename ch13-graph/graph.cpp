@@ -37,7 +37,7 @@ int GraphAdjList::getNumVertices() const { return vertices.size(); }
 
 int GraphAdjList::getId(string label) const {
   int size = getNumVertices();
-  for (int i = 0; i < size; i++)
+  for (int i = 0; i < size; ++i)
     if (vertices.at(i) == label) return i;
   return -1;
 }
@@ -45,7 +45,7 @@ int GraphAdjList::getId(string label) const {
 int GraphAdjList::getWeight(int id1, int id2) const {
   auto &list1 = adjacencyList.at(id1);
   int size = list1.size();
-  for (int i = 0; i < size; i++)
+  for (int i = 0; i < size; ++i)
     if (list1.at(i).first == id2) return list1.at(i).second;
   return -1;
 }

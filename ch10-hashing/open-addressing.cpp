@@ -25,7 +25,7 @@ bool HashTable::set(int key, int value) {
       buckets[bucketIdx].set(key, value);
       return true;
     }
-    probed++;
+    ++probed;
     bucketIdx = probe(bucketIdx, probed);
   }
   return false;
@@ -40,7 +40,7 @@ bool HashTable::remove(int key) {
       buckets[bucketIdx].remove();
       return true;
     }
-    probed++;
+    ++probed;
     bucketIdx = probe(bucketIdx, probed);
   }
   return false;
@@ -53,7 +53,7 @@ int HashTable::lookUp(int key) {
   while (!buckets[bucketIdx].isEmptySinceStart() && probed < capacity) {
     if (!buckets[bucketIdx].isEmpty() && buckets[bucketIdx].getKey() == key)
       return buckets[bucketIdx].getValue();
-    probed++;
+    ++probed;
     bucketIdx = probe(bucketIdx, probed);
   }
   return -1;

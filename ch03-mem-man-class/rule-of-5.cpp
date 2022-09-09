@@ -22,13 +22,13 @@ class MyClass {
     this->size = size;
     // dynamic data here
     arr = new int[size];
-    for (int i = 0; i < size; i++) arr[i] = initVal;
+    for (int i = 0; i < size; ++i) arr[i] = initVal;
   }
 
   MyClass(const MyClass& other) {  // deep copy
     size = other.size;
     arr = new int[size];
-    for (int i = 0; i < size; i++) arr[i] = other.arr[i];
+    for (int i = 0; i < size; ++i) arr[i] = other.arr[i];
   }
 
   MyClass(MyClass&& other) {  // move constructor, shallow copy
@@ -39,20 +39,20 @@ class MyClass {
   }
 
   ~MyClass() {
-    if (arr != nullptr) delete[] arr;
+    delete[] arr;
   }
 
   MyClass& operator=(const MyClass& other) {
     size = other.size;
-    if (arr != nullptr) delete[] arr;
+    delete[] arr;
     arr = new int[size];
-    for (int i = 0; i < size; i++) arr[i] = other.arr[i];
+    for (int i = 0; i < size; ++i) arr[i] = other.arr[i];
     return *this;
   }
 
   MyClass& operator=(MyClass&& other) {  // move = operator
     size = other.size;
-    if (arr != nullptr) delete[] arr;
+    delete[] arr;
     arr = other.arr;
     other.arr = nullptr;  // disconnect the data from the original object
     other.size = 0;
@@ -66,7 +66,7 @@ class MyClass {
 
 // use the reference parameter will avoid object copy
 void print(const MyClass &obj) {
-  for (int i = 0; i < obj.getSize(); i++) {
+  for (int i = 0; i < obj.getSize(); ++i) {
     cout << obj.at(i) << " ";
   }
   cout << endl;
@@ -74,7 +74,7 @@ void print(const MyClass &obj) {
 
 // will trigger implicit assignment during parameter passing
 void print1(MyClass obj) {
-  for (int i = 0; i < obj.getSize(); i++) {
+  for (int i = 0; i < obj.getSize(); ++i) {
     cout << obj.at(i) << " ";
   }
   cout << endl;

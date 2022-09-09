@@ -1,6 +1,6 @@
 // search linearly, return on match
 int search(int * arr, int size, int val) {
-  for (int i = 0; i < size; i++)
+  for (int i = 0; i < size; ++i)
     if (arr[i] == val)
       return i;
   return -1;
@@ -13,7 +13,7 @@ int search(int * arr, int size, int val) {
 // search linearly, continue on match
 int search1(int * arr, int size, int val) {
   int idx = -1;
-  // for (int i = 0; i < size; i++)
+  // for (int i = 0; i < size; ++i)
   //   if (arr[i] == val)
   //     idx = i;
 
@@ -21,7 +21,7 @@ int search1(int * arr, int size, int val) {
   while (i < size) {
     if (arr[i] == val) // always match in the worst case
       idx = i;
-    i++;
+    ++i;
   }
   return idx;
 }
