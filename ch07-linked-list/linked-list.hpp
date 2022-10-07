@@ -8,6 +8,8 @@ template<class T>
 class Node {
   T value;
   Node * next;
+ public:
+  //...
 };
 
 template<class T>
@@ -15,6 +17,8 @@ class BidirectionalNode {
   T value;
   BidirectionalNode * next;
   BidirectionalNode * prev;
+ public:
+  //...
 };
 
 // minimal linked list
