@@ -15,7 +15,6 @@ struct Node {
 
 template <class T>
 class LinkedList {
- private:
   Node<T> *head;
   // insertion sort helper
   void sortedInsert(Node<T> *node);
@@ -27,6 +26,7 @@ class LinkedList {
 
  public:
   LinkedList();
+// This method allows initialization using {}
   LinkedList(std::initializer_list<T> l);
   ~LinkedList();
   void append(T value);
