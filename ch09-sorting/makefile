@@ -1,21 +1,26 @@
-# This makefile is designed to compile single target multi-file projects
-
-CXX = g++
-CXXFLAGS = -std=c++14 -Wall -g # compilation flags
-LFLAGS =  # linking flags
-TARGET = sorting-test
-HEADERS = llist.hpp
-SRCS = sorting-test.cpp
-OBJS = sorting-test.o
-RM = rm -rf
+SHELL := /bin/bash
+CXX := g++
+INC := ../utility
+CXXFLAGS := -g -std=c++14 -Wall -Werror=return-type  -Werror=uninitialized \
+			-Wno-sign-compare
+LFLAGS := # linking flags
+HEADERS := $(wildcard *.hpp)
+SRCS := $(wildcard *.cpp)
+OBJS := $(SRCS:.cpp=.o)
+TARGETS := $(basename $(SRCS))
+RM := rm -rf
 
 .PHONY: clean
 
-$(TARGET): $(OBJS)
+all: $(TARGETS)
+
+$(TARGETS): %: %.o
 	$(CXX) $(LFLAGS) -o $@ $^
 
-$(OBJS): %.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+$(OBJS): %.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INC:%=-I%) -c -o $@ $<
+
+ll-sort-test.o: ll-sort-test.cpp $(HEADERS)
 
 clean:
-	$(RM) $(TARGET) $(OBJS)
+	$(RM) $(TARGETS) $(OBJS) *.gc* *.dSYM
