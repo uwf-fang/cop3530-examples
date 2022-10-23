@@ -12,6 +12,7 @@ class Node {
   int value;
   Node *next;
  public:
+  Node();
   Node(int key, int value);
   int getKey() const;
   int getValue() const;
@@ -26,7 +27,7 @@ class HashTable {
   Node **buckets;  // 1D array of pointers to linked lists
   int hashFunction(int key);
  public:
-  HashTable(int capacity = 100);
+  HashTable(int capacity = 101);
   ~HashTable();
   void set(int key, int value);
   bool remove(int key);

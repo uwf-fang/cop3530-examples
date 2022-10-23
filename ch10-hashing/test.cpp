@@ -4,14 +4,14 @@
 
 using namespace std;
 
-void testOpenChain();
+void testOpenAddressing();
 
 int main() {
-    testOpenChain();
+    testOpenAddressing();
 }
 
-void testOpenChain() {
-    cout << "Testing hash table class\n";
+void testOpenAddressing() {
+    cout << "Testing open addressing hash table class\n";
     HashTable hash;
     assert(hash.set(10, 20));
     assert(hash.set(110, 30));  // collision

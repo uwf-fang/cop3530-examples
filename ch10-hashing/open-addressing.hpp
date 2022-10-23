@@ -4,8 +4,8 @@
  * Use simple linear probing
  */
 
-#ifndef HASHTABLE_HPP
-#define HASHTABLE_HPP
+#ifndef OPEN_ADDRESSING_HPP
+#define OPEN_ADDRESSING_HPP
 
 class Bucket {
   int key;
@@ -33,11 +33,11 @@ class HashTable {
   int probe(int hash, int probed);
 
  public:
-  HashTable(int capacity = 100);
+  HashTable(int capacity = 101);  // have default constructor covered
   ~HashTable();
   bool set(int key, int value);
   bool remove(int key);
   int lookUp(int key);
 };
 
-#endif  // HASHTABLE_HPP
+#endif  // OPEN_ADDRESSING_HPP
