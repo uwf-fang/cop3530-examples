@@ -1,4 +1,3 @@
-
 #include "grid.hpp"
 
 Node::Node() : value(0) {}

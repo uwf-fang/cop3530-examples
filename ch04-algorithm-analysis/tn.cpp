@@ -7,15 +7,11 @@ int search(int * arr, int size, int val) {
 }
 // 1 + n + 1 + n + n + 1 = 3n + 3, worst O(n)
 // 1 + 1 + 1 + 1 = 4, best
-// 1 + n + 1 + n + n * (t1(n))
 
 
 // search linearly, continue on match
 int search1(int * arr, int size, int val) {
   int idx = -1;
-  // for (int i = 0; i < size; ++i)
-  //   if (arr[i] == val)
-  //     idx = i;
 
   int i = 0;
   while (i < size) {
