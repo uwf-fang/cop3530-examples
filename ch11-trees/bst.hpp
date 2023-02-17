@@ -1,122 +1,100 @@
+/**
+ * @file bst.hpp
+ * @brief Binary search tree class template
+ *
+ */
 #ifndef BST_HPP
 #define BST_HPP
 
-template <class T>
-class Node {
-  T value;
-  Node *left;
-  Node *right;
- public:
-  Node();
-  Node(T value, Node *left, Node *right);
-  void setValue(T value);
-  T getValue(T);
-  void setLeft(Node *left);
-  void setRight(Node *right);
-  Node * getLeft();
-  Node * getRight();
-};
+#include <iostream>
 
-template <class T>
-class BinSearchTree {
-  Node<T> *root;
-  Node<T> *searchHelper(Node<T> *root, T value);
-  Node<T> *insertHelper(Node<T> *root, T value);
-  Node<T> *removeHelper(Node<T> *root, T value);
-  void printInOrderHelper(Node<T> *root);
- public:
-  BinSearchTree();
-  Node<T> *search(T value);
-  void insert(T value);
-  void remove(T value);
-  void printInOrder();
-};
+template <typename T>
+class BinarySearchTree {
+ private:
+  // private node class
+  struct Node {
+    T value;
+    Node* left;
+    Node* right;
+    Node(T value) : value(value), left(nullptr), right(nullptr) {}
+  };
 
-template <class T>
-Node<T> * BinSearchTree<T>::search(T value) {
-  return searchHelper(root, value);
-}
+  Node* root;
 
-template <class T>
-Node<T> *BinSearchTree<T>::searchHelper(Node<T> *root, T value) {
-  if (root == nullptr)
-    return nullptr;
-  else if (root->getValue() == value)
-    return root;
-  else if (root->getValue() > value)
-    return searchHelper(root->getLeft(), value);
-  else
-    return searchHelper(root->getRight(), value);
-}
+  Node* insertRecursive(Node* node, T value) {
+    if (node == nullptr) return new Node(value);
 
+    if (value < node->value)
+      node->left = insertRecursive(node->left, value);
+    else if (value > node->value)
+      node->right = insertRecursive(node->right, value);
 
-template <class T>
-void BinSearchTree<T>::insert(T value) {
-  root = insertHelper(root, value);
-}
-
-template <class T>
-Node<T> *BinSearchTree<T>::insertHelper(Node<T> *root, T value) {
-  if (root == nullptr)
-    return new Node<T>(value, nullptr, nullptr);
-  if (value > root->getValue()) {
-    root->setRight(insertHelper(root->getRight(), value));
-    return root;
+    return node;
   }
-  else {
-    root->setLeft(insertHelper(root->getLeft(), value));
-    return root;
+
+  bool containsRecursive(Node* node, T value) {
+    if (node == nullptr) return false;
+    if (node->value == value) return true;
+    if (value < node->value)
+      return containsRecursive(node->left, value);
+    else
+      return containsRecursive(node->right, value);
   }
-}
 
-template <class T>
-void BinSearchTree<T>::remove(T value) {
-  root = removeHelper(root, value);
-}
-
-template <class T>
-Node<T> *BinSearchTree<T>::removeHelper(Node<T> *root, T value) {
-  if (root == nullptr)
-    return nullptr;
-  if (value < root->getValue())
-    root->setLeft(removeHelper(root->getLeft(), value));
-  else if (value > root->getValue())
-    root->setRight(removeHelper(root->getRight(), value));
-  else {  // match the current node
-    if (root->getLeft() == nullptr && root->getRight() == nullptr) {
-      delete root;
+  Node* removeRecursive(Node* node, T value) {
+    if (node == nullptr) {
       return nullptr;
-    } else if (root->getLeft() == nullptr) { // only have right child
-      Node<T> *backup = root->getRight();
-      delete root;
-      return backup;
-    } else if (root->getRight() == nullptr) { // only have left child
-      Node<T> *backup = root->getLeft();
-      delete root;
-      return backup;
-    } else {   // two children
-        // find the left most node in the right subtree
-        Node<T> * current = root->getRight();
-        while (current->getLeft() != nullptr)
-          current = current->getLeft();
-        root->setValue(current->getValue());
-        root->setRight(removeHelper(root->getRight(), root->getValue()))
     }
+
+    if (value == node->value) {
+      if (node->left == nullptr && node->right == nullptr) {
+        delete node;
+        return nullptr;
+      } else if (node->left == nullptr) {
+        Node* temp = node->right;
+        delete node;
+        return temp;
+      } else if (node->right == nullptr) {
+        Node* temp = node->left;
+        delete node;
+        return temp;
+      } else {
+        Node* temp = findMinNode(node->right);
+        node->value = temp->value;
+        node->right = removeRecursive(node->right, temp->value);
+        return node;
+      }
+    } else if (value < node->value)
+      node->left = removeRecursive(node->left, value);
+    else
+      node->right = removeRecursive(node->right, value);
+
+    return node;
   }
-}
 
-template <class T>
-void BinSearchTree<T>::printInOrder() {
-  printInOrderHelper(root);
-}
+  void inOrderTraversalRecursive(Node* node) {
+    if (node == nullptr) return;
 
-template <class T>
-void BinSearchTree<T>::printInOrderHelper(Node<T> *root) {
-  if (root != nullptr) {
-    printInOrderHelper(root->getLeft());
-    cout << root->getValue << " ";
-    printInOrderHelper(root->getRight());
+    inOrderTraversalRecursive(node->left);
+    std::cout << node->value << " ";
+    inOrderTraversalRecursive(node->right);
   }
-}
 
-#endif
+  Node* findMinNode(Node* node) {
+    Node* current = node;
+    while (current && current->left != nullptr) current = current->left;
+    return current;
+  }
+
+ public:
+  BinarySearchTree() : root(nullptr) {}
+  void insert(T value) { root = insertRecursive(root, value); }
+  bool contains(T value) { return containsRecursive(root, value); }
+  void remove(T value) { root = removeRecursive(root, value); }
+  void inOrderTraversal() {
+    inOrderTraversalRecursive(root);
+    std::cout << std::endl;
+  }
+};
+
+#endif  // BST_HPP
