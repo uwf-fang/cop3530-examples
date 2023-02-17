@@ -14,9 +14,8 @@ bool areEqualArraysHelper1(int *arr1, int *arr2, int left, int right);
 bool isPalindrome(int *arr, int size);
 bool isPalindromeHelper(int *arr, int left, int right);
 
-// fibonacci(47) will overflow int type
 int fibonacci(int n);
-int fibonacciMemory(int n);
+int fibonacciMemorized(int n);
 
 int binarySearch(int arr[], int size, int value);
 int binarySearchHelper(int arr[], int left, int right, int value);
@@ -55,7 +54,6 @@ bool areEqualArraysHelper1(int *arr1, int *arr2, int left, int right) {
   return areEqualArraysHelper1(arr1, arr2, left + 1, right);
 }
 
-
 bool isPalindrome(int *arr, int size) {
   return isPalindromeHelper(arr, 0, size - 1);
 }
@@ -66,31 +64,22 @@ bool isPalindromeHelper(int *arr, int left, int right) {
   return isPalindromeHelper(arr, left + 1, right - 1);
 }
 
-
 // inefficient because of redundant calculation
 int fibonacci(int n) {
   // cout << "fibonacci(" << n << ") is called.\n";
-  if (n <= 2)
+  if (n == 0)
+    return 0;
+  if (n == 1)
     return 1;
-  else
-    return fibonacci(n - 1) + fibonacci(n - 2);
+  return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-// global variable as memory
-// fibonacci(47) will overflow int type
-int memory[46] = {};
-
-int fibonacciMemory(int n) {
-  // cout << "fibonacci(" << n << ") with memory is called\n";
-  if (n <= 2)
-    return 1;
-  else {
-    if (memory[n] != 0) return memory[n];
-    if (memory[n - 2] == 0) memory[n - 2] = fibonacciMemory(n - 2);
-    if (memory[n - 1] == 0) memory[n - 1] = fibonacciMemory(n - 1);
-    memory[n] = memory[n - 1] + memory[n - 2];
-    return memory[n];
-  }
+int fibonacciMemorized(int n, int *memory) {
+  if (n == 0) memory[n] = 0;
+  else if (n == 1) memory[n] = 1;
+  else memory[n] = fibonacciMemorized(n - 1, memory)
+          + fibonacciMemorized(n - 2, memory);
+  return memory[n];
 }
 
 int binarySearch(int arr[], int size, int value) {
@@ -156,11 +145,12 @@ void testArrayPalindrome() {
 void testFibonacci() {
   cout << "Testing Fibonacci algorithms\n";
   assert(fibonacci(10) == 55);
-  assert(fibonacci(0) == 1);
-  assert(fibonacci(2) == 1);
-  assert(fibonacciMemory(10) == 55);
-  assert(fibonacciMemory(0) == 1);
-  assert(fibonacciMemory(2) == 1);
+  assert(fibonacci(0) == 0);
+
+  // fibonacci(47) will overflow int type
+  int memory[46] = {};
+  assert(fibonacciMemorized(10, memory) == 55);
+
   cout << "All tests passed\n";
 }
 
