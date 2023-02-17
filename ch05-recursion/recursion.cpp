@@ -75,6 +75,7 @@ int fibonacci(int n) {
 }
 
 int fibonacciMemorized(int n, int *memory) {
+  if (memory[n] != 0) return memory[n];
   if (n == 0) memory[n] = 0;
   else if (n == 1) memory[n] = 1;
   else memory[n] = fibonacciMemorized(n - 1, memory)
