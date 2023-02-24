@@ -83,10 +83,7 @@ void SinglyLinkedList<T>::prepend(Node<T> *node) {
 
 template <class T>
 void SinglyLinkedList<T>::insertAfter(Node<T> *node, Node<T> *newNode) {
-  if (head == nullptr) {  // empty list
-    head = newNode;
-    tail = newNode;
-  } else if (node == tail) {  // insert after the last node
+  if (node == tail) {  // insert after the last node
     tail->setNext(newNode);
     tail = newNode;
   } else {  // general cases
