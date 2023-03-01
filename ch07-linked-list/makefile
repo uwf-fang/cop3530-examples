@@ -4,11 +4,18 @@ RM = rm -rf
 
 .PHONY: all clean
 
-all : $(TARGETS)
+test-all : test-singly test-doubly
 
-test-ll: list-test.cpp singly-ll.hpp
+%.o:%.cpp
+	$(CXX) $(CXXFLAGS) -c $<
+
+test-doubly: test-doubly.o
 	$(CXX) -o $@ $<
-	./test-ll
+	./test-doubly
+
+test-singly: test-singly.o
+	$(CXX) -o $@ $<
+	./test-singly
 
 clean :
 	$(RM) $(TARGETS) *.o

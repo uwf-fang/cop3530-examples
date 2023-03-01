@@ -10,7 +10,7 @@ class Node {
 
  public:
   Node<T>();
-  Node<T>(T value) : value(value){};
+  Node<T>(T value) : value(value), next(nullptr) {};
   void setNext(Node<T> *next) { this->next = next; }
   Node<T> *getNext() { return next; }
   T getValue() { return value; }
@@ -67,7 +67,11 @@ class SinglyLinkedList {
 
 template <class T>
 void SinglyLinkedList<T>::append(Node<T> *node) {
-  insertAfter(tail, node);
+  if (head == nullptr) {
+    head = node;
+    tail = node;
+  } else
+    insertAfter(tail, node);
 }
 
 template <class T>
@@ -83,13 +87,10 @@ void SinglyLinkedList<T>::prepend(Node<T> *node) {
 
 template <class T>
 void SinglyLinkedList<T>::insertAfter(Node<T> *node, Node<T> *newNode) {
-  if (node == tail) {  // insert after the last node
-    tail->setNext(newNode);
+  newNode->setNext(node->getNext());
+  node->setNext(newNode);
+  if (node == tail) // insert after the last node
     tail = newNode;
-  } else {  // general cases
-    newNode->setNext(node->getNext());
-    node->setNext(newNode);
-  }
 }
 
 template <class T>

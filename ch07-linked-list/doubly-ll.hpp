@@ -1,6 +1,9 @@
 #ifndef DOUBLY_LL_HPP
 #define DOUBLY_LL_HPP
 
+#include <cstddef>
+#include <stdexcept>
+
 // This implementation is an example of a Deque implemented as a
 // doubly-linked list
 // It has a functionalities required by a Deque with two additional methods:
@@ -19,7 +22,7 @@ class DoublyLinkedList {
 
   Node* head;
   Node* tail;
-  size_t count;
+  size_t count;  // unsigned int
 
  public:
   DoublyLinkedList() : head(nullptr), tail(nullptr), count(0) {}

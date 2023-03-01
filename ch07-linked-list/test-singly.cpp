@@ -1,9 +1,6 @@
 /**
- * @file list-test.cpp
- * @author Ian Fang
+ * @file test-singly.cpp
  * @brief Test runner of the singly-linked list
- *
- * @copyright Copyright (c) 2022
  *
  */
 #include "singly-ll.hpp"
