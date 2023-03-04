@@ -1,10 +1,11 @@
 TARGETS = test-ll
 CXXFLAGS = -Wall -std=c++14
 RM = rm -rf
+TARGETS = test-singly test-doubly
 
 .PHONY: all clean
 
-test-all : test-singly test-doubly
+test-all : $(TARGETS)
 
 %.o:%.cpp
 	$(CXX) $(CXXFLAGS) -c $<
