@@ -1,3 +1,5 @@
+#ifndef LINKED_LIST_HPP
+#define LINKED_LIST_HPP
 /**
  * All linked list (templated)
  *   All linked list has one value of type T in each
@@ -55,3 +57,4 @@ class DoublyLinkedList {
   // ...
 };
 
+#endif
