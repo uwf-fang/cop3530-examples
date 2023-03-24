@@ -11,13 +11,13 @@ class Bucket {
   int key;
   int value;
   bool emptySinceStart;
-  bool emptySinceRemoval;
+  bool emptyAfterRemoval;
  public:
   Bucket();
   void set(int key, int value);
   void remove();
   bool isEmptySinceStart() const;
-  bool isEmptySinceRemoval() const;
+  bool isEmptyAfterRemoval() const;
   bool isEmpty() const;
   int getKey() const;
   int getValue() const;
@@ -25,19 +25,22 @@ class Bucket {
 
 // HashTable
 // Linear probing
-class HashTable {
+// To keep it simple, both key and value are non-negative
+class HashMap {
   int capacity;
+  int size_;
   Bucket *buckets;
-  int hashFunction(int key);
+  int hashFunction(int key) const;
   // probing algorithm
-  int probe(int hash, int probed);
+  int probe(int hash, int probed) const;
 
  public:
-  HashTable(int capacity = 101);  // have default constructor covered
-  ~HashTable();
-  bool set(int key, int value);
+  HashMap(int capacity = 101);  // have default constructor covered
+  ~HashMap();
+  bool put(int key, int value);
   bool remove(int key);
-  int lookUp(int key);
+  int get(int key) const;
+  int size() const;
 };
 
 #endif  // OPEN_ADDRESSING_HPP

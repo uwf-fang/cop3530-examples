@@ -11,15 +11,19 @@ int main() {
 }
 
 void testOpenAddressing() {
-    cout << "Testing open addressing hash table class\n";
-    HashTable hash;
-    assert(hash.set(10, 20));
-    assert(hash.set(110, 30));  // collision
-    assert(hash.lookUp(10) == 20);  // gives 20
-    assert(hash.lookUp(110) == 30); // gives 30
-    assert(hash.lookUp(11) == -1); // gives -1, no match
-    assert(hash.remove(110));  // found and succeed
-    assert(!hash.remove(1));  // not found and fail
-    assert(hash.lookUp(110)); // gives -1, no match after removal
+    cout << "Testing open addressing hash map class\n";
+    HashMap map;
+    assert(!map.remove(1));  // remove fail on empty hash map
+    assert(map.size() == 0);
+    assert(map.put(10, 20));
+    assert(map.put(110, 30));  // collision
+    assert(map.size() == 2);
+    assert(map.get(10) == 20);  // gives 20
+    assert(map.get(110) == 30); // gives 30
+    assert(map.get(11) == -1); // gives -1, no match
+    assert(map.remove(110));  // found and succeed
+    assert(map.size() == 1);
+    assert(!map.remove(1));  // not found and fail
+    assert(map.get(110) == -1); // gives -1, no match after removal
     cout << "All tests passed!\n";
 }

@@ -8,63 +8,76 @@
 
 #include <iostream>
 
-using std::cerr;
+HashMap::HashMap(int capacity):
+    capacity(capacity),
+    size_(0),
+    buckets(new Bucket[capacity])
+    {}
 
-HashTable::HashTable(int capacity): capacity(capacity), buckets(new Bucket[capacity]) {}
+HashMap::~HashMap() { delete[] buckets; }
 
-HashTable::~HashTable() { delete[] buckets; }
+int HashMap::hashFunction(int key) const {
+  return key % capacity;
+}
 
-int HashTable::hashFunction(int key) { return key % capacity; }
-
-bool HashTable::set(int key, int value) {
+bool HashMap::put(int key, int value) {
+  if (size_ == capacity) return false; // full hash table
+  if (get(key) != -1) return false; // key already exist
   int probed = 0;
-  int hash = this->hashFunction(key);
-  int bucketIdx = probe(hash, probed);
+  int hash = hashFunction(key);
+  int bucketIdx = hash;
   while (probed < capacity) {
     if (buckets[bucketIdx].isEmpty()) {
       buckets[bucketIdx].set(key, value);
+      ++size_;
       return true;
     }
     ++probed;
-    bucketIdx = probe(bucketIdx, probed);
+    bucketIdx = probe(hash, probed);
   }
   return false;
 }
 
-bool HashTable::remove(int key) {
+bool HashMap::remove(int key) {
+  if (size_ == 0) return false; // empty hash table
   int probed = 0;
-  int hash = this->hashFunction(key);
-  int bucketIdx = probe(hash, probed);
+  int hash = hashFunction(key);
+  int bucketIdx = hash;
   while (!buckets[bucketIdx].isEmptySinceStart() && probed < capacity) {
     if (!buckets[bucketIdx].isEmpty() && buckets[bucketIdx].getKey() == key) {
       buckets[bucketIdx].remove();
+      --size_;
       return true;
     }
     ++probed;
-    bucketIdx = probe(bucketIdx, probed);
+    bucketIdx = probe(hash, probed);
   }
-  return false;
+  return false;  // cannot find
 }
 
-int HashTable::lookUp(int key) {
+int HashMap::get(int key) const {
   int probed = 0;
-  int hash = this->hashFunction(key);
-  int bucketIdx = probe(hash, probed);
+  int hash = hashFunction(key);
+  int bucketIdx = hash;
   while (!buckets[bucketIdx].isEmptySinceStart() && probed < capacity) {
     if (!buckets[bucketIdx].isEmpty() && buckets[bucketIdx].getKey() == key)
       return buckets[bucketIdx].getValue();
     ++probed;
-    bucketIdx = probe(bucketIdx, probed);
+    bucketIdx = probe(hash, probed);
   }
-  return -1;
+  return -1;  // special value to encode "key not found error"
 }
 
-int HashTable::probe(int hash, int probed) {
+int HashMap::size() const { return size_; }
+
+// simplest linear probing
+// probed is i in the formula
+int HashMap::probe(int hash, int probed) const {
   return (hash + 1 * probed) % capacity;
 }
 
 Bucket::Bucket()
-    : key(0), value(0), emptySinceStart(true), emptySinceRemoval(false) {}
+    : key(0), value(0), emptySinceStart(true), emptyAfterRemoval(false) {}
 
 void Bucket::set(int key, int value) {
   this->key = key;
@@ -75,15 +88,15 @@ void Bucket::set(int key, int value) {
 void Bucket::remove() {
   key = 0;
   value = 0;
-  emptySinceRemoval = true;
+  emptyAfterRemoval = true;
 }
 
 bool Bucket::isEmptySinceStart() const { return emptySinceStart; }
 
-bool Bucket::isEmptySinceRemoval() const { return emptySinceRemoval; }
+bool Bucket::isEmptyAfterRemoval() const { return emptyAfterRemoval; }
 
 bool Bucket::isEmpty() const {
-  return isEmptySinceStart() || isEmptySinceRemoval();
+  return isEmptySinceStart() || isEmptyAfterRemoval();
 }
 
 int Bucket::getKey() const { return key; }

@@ -20,18 +20,20 @@ class Node {
   Node *getNext() const;
 };
 
-// HashTable
+// HashMap
 // chaining
-class HashTable {
+class HashMap {
   int capacity;
+  int size;
   Node **buckets;  // 1D array of pointers to linked lists
-  int hashFunction(int key);
+  int hashFunction(int key) const;
  public:
-  HashTable(int capacity = 101);
-  ~HashTable();
-  void set(int key, int value);
+  HashMap(int capacity = 101);
+  ~HashMap();
+  void put(int key, int value);
   bool remove(int key);
-  int lookUp(int key);
+  int get(int key) const;
+  int size() const;
 };
 
 #endif  // CHAINING_HPP
