@@ -2,8 +2,8 @@ CXX=g++
 CXXFLAGS=-std=c++14 -Wall
 LFLAGS=
 TARGET=main
-HEADERS=min-heap.hpp priority-queue.hpp
-SRC=driver.cpp
+HEADERS=
+SRC=sudoku.cpp
 OBJS=$(SRC:%.cpp=%.o)
 RM=rm -rf
 
