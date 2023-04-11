@@ -7,21 +7,21 @@ template <class T>
 class PriorityQueue {
   MinHeap<T> heap;  // MinHeap has the int type as its base type
 public:
-  void push(T value);
-  T pop();
+  void enqueue(T value);
+  T dequeue();
   T peek();
   bool isEmpty();
   int getLength();
 };
 
 template <class T>
-void PriorityQueue<T>::push(T value) {
-  heap.push(value);
+void PriorityQueue<T>::enqueue(T value) {
+  heap.insert(value);
 }
 
 template <class T>
-T PriorityQueue<T>::pop() {
-  return heap.pop();
+T PriorityQueue<T>::dequeue() {
+  return heap.remove();
 }
 
 template <class T>

@@ -1,5 +1,5 @@
-#ifndef MINHEAP_HPP
-#define MINHEAP_HPP
+#ifndef MIN_HEAP_HPP
+#define MIN_HEAP_HPP
 #include <utility>  // std::swap
 
 template <class T>
@@ -7,15 +7,15 @@ class MinHeap {
   T *array;
   int length;
   int maxLength;
-  void expend();
+  void reAllocate();
   void percolateUp(int nodeIndex);
   void percolateDown(int nodeIndex);
 
  public:
   MinHeap();
   ~MinHeap();
-  void push(T value);
-  T pop();
+  void insert(T value);
+  T remove();
   T peek();
   bool isEmpty();
   int getLength();
@@ -30,7 +30,7 @@ MinHeap<T>::~MinHeap() {
 }
 
 template <class T>
-void MinHeap<T>::expend() {
+void MinHeap<T>::reAllocate() {
   maxLength += 100;
   T *newArr = new T[maxLength];
   for (int i = 0; i < maxLength; ++i)
@@ -80,22 +80,24 @@ void MinHeap<T>::percolateDown(int nodeIndex) {
 }
 
 template <class T>
-void MinHeap<T>::push(T value) {
-  if (length >= maxLength) expend();
+void MinHeap<T>::insert(T value) {
+  if (length >= maxLength) reAllocate();
   array[length] = value;
   percolateUp(length);
   ++length;
 }
 
+// Should always check not empty before calling dequeue
 template <class T>
-T MinHeap<T>::pop() {
+T MinHeap<T>::remove() {
   T value = array[0];
   array[0] = array[length - 1];
-  length--;
+  --length;
   percolateDown(0);
   return value;
 }
 
+// Should always check not empty before calling dequeue
 template <class T>
 T MinHeap<T>::peek() {
   return array[0];
@@ -111,4 +113,4 @@ int MinHeap<T>::getLength() {
   return length;
 }
 
-#endif
+#endif // MIN_HEAP_HPP

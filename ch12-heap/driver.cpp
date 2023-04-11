@@ -6,16 +6,17 @@ using namespace std;
 
 int main() {
 	PriorityQueue<int> q;
-	q.push(10);
-	q.push(34);
-	q.push(15);
-	q.push(23);
+	q.enqueue(10);
+	q.enqueue(34);
+	q.enqueue(15);
+	q.enqueue(23);
 	int size = q.getLength();
 
 	// pop out one by one, expect to be in ascending order
-	for (int i = 0; i < size; ++i) {
-		cout << q.pop() << " \n";
-	}
+  cout << "Ascending order expected" << endl;
+	for (int i = 0; i < size; ++i)
+		cout << q.dequeue() << " ";
+  cout << endl;
 }
 
 
