@@ -3,25 +3,13 @@
 
 #include <vector>  // vector
 #include <string>
-#include <list>   // linked list
 
-// Assuming each vertex has a unique label
+// Assuming each vertex has a unique string label
 // Assuming you know the number of vertices
 // Undirected graph
 // positive int weights
-class GraphAdjList {
+class GraphAdjListVector {
  private:
-
-  // 1st option
-  // adjacencyList can be C array of pointers to linked list nodes
-  // std::vector<std::string> vertices;
-  // ListNode **adjacencyList;
-
-  // 2nd Option to store labels together
-  // std::vector<std::pair<std::string, std::vector<std::pair<int, int>>>> adjacencyList;
-
-  // 3rd option
-
   // The index of each label in this vector will be referred to as the ID
   //   of the vertex.
   std::vector<std::string> vertices;
@@ -32,28 +20,67 @@ class GraphAdjList {
 
   bool isValidID(int id) const;
  public:
-  GraphAdjList(int numOfVertices = 0);
+  GraphAdjListVector(int numOfVertices = 0);
   bool registerVertices(const std::vector<std::string> &labels);
   bool registerEdge(int id1, int id2, int weight);
   int getNumVertices() const;
   int getId(std::string label) const;
   int getWeight(int id1, int id2) const;
   const std::vector<std::string> &getVertices() const;
-  // std::vector<int> getNeighbors(int id) const;
-  // std::vector<std::string> DFS(std::string label) const;
-  // std::vector<std::string> BFS(std::string label) const;
+  std::vector<int> getNeighbors(int id) const;
 };
 
-// Assuming each vertex has a unique label
+// Assuming each vertex has a unique string label
+// Assuming you know the number of vertices
+// Undirected graph
+// positive int weights
+class GraphAdjListArray {
+  struct node {
+    int destID;
+    int weight;
+    node *next;
+    node(int destID, int weight, node *next): destID(destID), weight(weight), next(next) {}
+  };
+  int size;
+  std::string *vertices;
+  node **adjList;
+ public:
+  GraphAdjListArray(): size(0), vertices(nullptr), adjList(nullptr) {}
+  ~GraphAdjListArray();
+  bool registerVertices(const std::vector<std::string> &labels);
+  bool registerEdge(int id1, int id2, int weight);
+  std::vector<int> getNeighbors(int id) const;
+};
+
+// Assuming each vertex has a unique string label
 // Assuming you know the number of vertices
 // positive weights
-class GraphAdjMatrix {
+class GraphAdjMatrixVector {
  private:
   std::vector<std::string> vertices;
-  // Can also be simply 2D dynamic int array
-  // int **adjacencyMatrix;
   std::vector<std::vector<int>> adjacencyMatrix;
  public:
+  GraphAdjMatrixVector(int numOfVertices = 0);
+  bool registerVertices(const std::vector<std::string> &labels);
+  bool registerEdge(int id1, int id2, int weight);
+  int getNumVertices() const;
+  int getId(std::string label) const;
+  int getWeight(int id1, int id2) const;
+  const std::vector<std::string> &getVertices() const;
 };
 
+class GraphAdjMatrixArray {
+ private:
+  std::string * vertices;
+  int **adjacencyMatrix;
+ public:
+  GraphAdjMatrixArray(int numOfVertices = 0);
+  ~GraphAdjMatrixArray();
+  bool registerVertices(const std::vector<std::string> &labels);
+  bool registerEdge(int id1, int id2, int weight);
+  int getNumVertices() const;
+  int getId(std::string label) const;
+  int getWeight(int id1, int id2) const;
+  const std::vector<std::string> &getVertices() const;
+};
 #endif // GRAPH_HPP_

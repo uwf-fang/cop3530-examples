@@ -8,6 +8,9 @@
 
 #include <iostream>
 
+using std::cout;
+using std::endl;
+
 template <typename T>
 class BinarySearchTree {
  private:
@@ -20,6 +23,15 @@ class BinarySearchTree {
   };
 
   Node* root;
+
+  void deleteSubtree(Node *root) {
+    if (root == nullptr)
+      return;
+    deleteSubtree(root->getLeft());
+    deleteSubtree(root->getRight());
+    delete root;
+    root = nullptr;
+  }
 
   Node* insertRecursive(Node* node, T value) {
     if (node == nullptr) return new Node(value);
@@ -74,9 +86,8 @@ class BinarySearchTree {
 
   void inOrderTraversalRecursive(Node* node) {
     if (node == nullptr) return;
-
     inOrderTraversalRecursive(node->left);
-    std::cout << node->value << " ";
+    cout << node->value << " ";
     inOrderTraversalRecursive(node->right);
   }
 
@@ -88,12 +99,13 @@ class BinarySearchTree {
 
  public:
   BinarySearchTree() : root(nullptr) {}
+  ~BinarySearchTree() { deleteSubtree(root); }
   void insert(T value) { root = insertRecursive(root, value); }
   bool contains(T value) { return containsRecursive(root, value); }
   void remove(T value) { root = removeRecursive(root, value); }
   void inOrderTraversal() {
     inOrderTraversalRecursive(root);
-    std::cout << std::endl;
+    cout << endl;
   }
 };
 
