@@ -33,6 +33,13 @@ void testBST() {
   assert(!tree.contains(5));
   assert(tree.contains(6));
 
+  tree.insert(9);
+  tree.insert(7);
+  tree.insert(8);
+  outSS.str("");
+  tree.inOrderTraversalIterative();
+  assert(outSS.str() == "6 7 8 9 \n");
+
   // restore cout
   cout.rdbuf(old);
 

@@ -7,9 +7,11 @@
 #define BST_HPP
 
 #include <iostream>
+#include <stack>
 
 using std::cout;
 using std::endl;
+using std::stack;
 
 template <typename T>
 class BinarySearchTree {
@@ -24,9 +26,8 @@ class BinarySearchTree {
 
   Node* root;
 
-  void deleteSubtree(Node *root) {
-    if (root == nullptr)
-      return;
+  void deleteSubtree(Node* root) {
+    if (root == nullptr) return;
     deleteSubtree(root->getLeft());
     deleteSubtree(root->getRight());
     delete root;
@@ -99,12 +100,47 @@ class BinarySearchTree {
 
  public:
   BinarySearchTree() : root(nullptr) {}
-  ~BinarySearchTree() { deleteSubtree(root); }
+  // ~BinarySearchTree() { deleteSubtree(root); }
+  ~BinarySearchTree() {
+    // iterative destructor using stack
+    if (root == nullptr) return;  // empty tree
+    stack<Node*> st;
+    Node* curr = root;
+    while (curr != nullptr || !st.empty()) {
+      if (curr != nullptr) {
+        st.push(curr);
+        curr = curr->left;
+      } else {
+        curr = st.top();
+        st.pop();
+        Node* temp = curr;
+        curr = curr->right;
+        delete temp;
+      }
+    }
+  }
   void insert(T value) { root = insertRecursive(root, value); }
   bool contains(T value) { return containsRecursive(root, value); }
   void remove(T value) { root = removeRecursive(root, value); }
   void inOrderTraversal() {
     inOrderTraversalRecursive(root);
+    cout << endl;
+  }
+  void inOrderTraversalIterative() {
+    // implement using stack
+    stack<Node*> st;
+    Node* curr = root;
+
+    while (curr != nullptr || !st.empty()) {
+      while (curr != nullptr) {
+        st.push(curr);
+        curr = curr->left;
+      }
+      curr = st.top();
+      st.pop();
+      cout << curr->value << " ";
+      curr = curr->right;
+    }
     cout << endl;
   }
 };
