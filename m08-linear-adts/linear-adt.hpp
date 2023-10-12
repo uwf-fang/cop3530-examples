@@ -10,10 +10,24 @@
  */
 
 template <class T>
+class List {
+ public:
+  // Prepend + insertAfter can cover all cases
+  //  append + insertBefore can also cover all cases
+  void prepend(T value);
+  void addAfter(int index, T value);
+  void remove(T value);
+  int search(T value);
+  T get(int index);
+  bool isEmpty();
+};
+
+template <class T>
 class Stack {
  public:
   void push(T value);
   T pop();
+  T peek();
   bool isEmpty();
 };
 
@@ -22,6 +36,7 @@ class Queue {
  public:
   void enqueue(T value);
   T dequeue();
+  T peek();
   bool isEmpty();
 };
 
@@ -32,6 +47,8 @@ class Deque {
   T pop_back();
   void push_front(T value);
   T pop_front();
+  T peek_front();
+  T peek_back();
   bool isEmpty();
 };
 
@@ -44,6 +61,9 @@ class WrapperStack {
   }
   T pop() {
     return deque.pop_front();
+  }
+  T peek() {
+    return deque.peek_front();
   }
   bool isEmpty() {
     return deque.isEmpty();

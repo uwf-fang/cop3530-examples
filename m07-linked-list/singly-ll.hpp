@@ -17,7 +17,7 @@ class Node {
   void setValue(T value) { this->value = value; }
 };
 
-// singly-linked list
+// A singly-linked list implementing List ADT
 // a head pointer, a tail pointer
 // a next pointer in node class
 template <class T>
@@ -36,7 +36,9 @@ class SinglyLinkedList {
 
   // inline methods
   SinglyLinkedList() : head(nullptr), tail(nullptr) {}
+
   bool isEmpty() { return head == nullptr; }
+
   int size() {
     int count = 0;
     Node<T> *node = head;
@@ -46,6 +48,7 @@ class SinglyLinkedList {
     }
     return count;
   }
+
   void print() {
     Node<T> *node = head;
     while (node != nullptr) {
@@ -54,6 +57,7 @@ class SinglyLinkedList {
     }
     std::cout << std::endl;
   }
+
   ~SinglyLinkedList() {
     Node<T> *node = head;
     Node<T> *next;
@@ -65,6 +69,8 @@ class SinglyLinkedList {
   }
 };
 
+// Append is a special case of insertAfter except for the case when the
+// list is empty
 template <class T>
 void SinglyLinkedList<T>::append(Node<T> *node) {
   if (head == nullptr) {
@@ -118,7 +124,6 @@ void SinglyLinkedList<T>::remove(Node<T> *node) {
 template <class T>
 Node<T> *SinglyLinkedList<T>::search(T value) {
   Node<T> *node = head;
-  if (head == nullptr) return nullptr;
   while (node != nullptr) {
     if (node->getValue() == value) return node;  // find a match
     node = node->getNext();
@@ -126,4 +131,4 @@ Node<T> *SinglyLinkedList<T>::search(T value) {
   return nullptr;
 }
 
-#endif
+#endif // SINGLY_LL_HPP

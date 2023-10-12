@@ -5,11 +5,10 @@ Determined mostly by the most commonly used method/behavior in the algorithm.
 
 Available Implementations
 =========================
-+ C Array
++ C Array (partially filled or circular)
 
-  * fast indexing
-  * slow insertion, pre-pending
-  * fast appending
+  * fast indexing, appending
+  * slow insertion, prepending
   * slow to change capacity (maximum size)
 
 + Linked list
