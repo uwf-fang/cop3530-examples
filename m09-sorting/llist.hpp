@@ -1,11 +1,14 @@
 /**
- * @brief A linked list class template with insertion sort
+ * @brief A linked list class template with
+ *    insertion sort
+ *    merge sort
  */
 #ifndef LIST_HPP
 #define LIST_HPP
 
-#include <iostream>
 #include <initializer_list>
+#include <iostream>
+#include <vector>
 
 template <class T>
 struct Node {
@@ -26,7 +29,7 @@ class LinkedList {
 
  public:
   LinkedList();
-// This method allows initialization using {}
+  // This method allows initialization using {}
   LinkedList(std::initializer_list<T> l);
   ~LinkedList();
   void append(T value);
@@ -34,15 +37,15 @@ class LinkedList {
   void insertionSort();
   void mergeSort();
   void printAll();
+  std::vector<T> toVector() const;
 };
 
 template <class T>
-LinkedList<T>::LinkedList(): head(nullptr){}
+LinkedList<T>::LinkedList() : head(nullptr) {}
 
 template <class T>
-LinkedList<T>::LinkedList(std::initializer_list<T> l): head(nullptr) {
-  for (T v: l)
-    append(v);
+LinkedList<T>::LinkedList(std::initializer_list<T> l) : head(nullptr) {
+  for (T v : l) append(v);
 }
 
 template <class T>
@@ -73,6 +76,27 @@ void LinkedList<T>::printAll() {
 }
 
 template <class T>
+std::vector<T> LinkedList<T>::toVector() const {
+  std::vector<T> result;
+  Node<T> *current = head;
+  while (current != nullptr) {
+    result.push_back(current->value);
+    current = current->next;
+  }
+  return result;
+}
+
+template <class T>
+void LinkedList<T>::printAll(Node<T> *head) {
+  Node<T> *current = head;
+  while (current != nullptr) {
+    std::cout << (current->value) << ' ';
+    current = current->next;
+  }
+  std::cout << std::endl;
+}
+
+template <class T>
 void LinkedList<T>::append(T value) {
   Node<T> *node;
   node = new Node<T>();
@@ -81,8 +105,7 @@ void LinkedList<T>::append(T value) {
   // empty list
   if (head == nullptr) {
     head = node;
-  }
-  else {
+  } else {
     Node<T> *current = head;
     while (current->next != nullptr) {
       current = current->next;
@@ -91,13 +114,16 @@ void LinkedList<T>::append(T value) {
   }
 }
 
+// Insertion sort for linked list
+//   is out-of-place
 template <class T>
 void LinkedList<T>::insertionSort() {
-  Node<T> * newHead = head;
+  Node<T> *newHead = head;
   head = nullptr;
-  Node<T> * current = newHead;
-  Node<T> * next;
+  Node<T> *current = newHead;
+  Node<T> *next;
 
+  // Repeatedly insert current head node to the new list
   while (current != nullptr) {
     next = current->next;
     current->next = nullptr;
@@ -106,14 +132,15 @@ void LinkedList<T>::insertionSort() {
   }
 }
 
+// An essential part of insertion sort
+// Useful in other algorithms as well
 template <class T>
-void LinkedList<T>::sortedInsert(Node<T> * node) {
+void LinkedList<T>::sortedInsert(Node<T> *node) {
   // insert to empty list or insert before the first node
   if (head == nullptr || node->value <= head->value) {
     node->next = head;
     head = node;
-  }
-  else {
+  } else {
     Node<T> *current = head;
     // find the node to insert after or the tail node
     while (current->next != nullptr && current->next->value < node->value)
@@ -124,46 +151,13 @@ void LinkedList<T>::sortedInsert(Node<T> * node) {
 }
 
 template <class T>
-Node<T> *LinkedList<T>::splitMiddle(Node<T> *head) {
-  Node<T> *slow = head;
-  Node<T> *fast = head->next;
-  Node<T> *result;
-
-  while (fast != nullptr) {
-    fast = fast->next;
-    if (fast == nullptr)
-      break;
-    fast = fast->next;
-    slow = slow->next;
-  }
-  result = slow->next;
-  slow->next = nullptr;
-  return result;
-}
-
-template <class T>
-Node<T> *LinkedList<T>::sortedMerge(Node<T> *l1, Node<T> *l2) {
-  Node<T> *result = nullptr;
-
-  if (l1 == nullptr)
-    return l2;
-  if (l2 == nullptr)
-    return l1;
-
-  if (l1->value <= l2->value) {
-    result = l1;
-    result->next = sortedMerge(l1->next, l2);
-  } else {
-    result = l2;
-    result->next = sortedMerge(l1, l2->next);
-  }
-  return result;
+void LinkedList<T>::mergeSort() {
+  head = mergeSortHelper(head);
 }
 
 template <class T>
 Node<T> *LinkedList<T>::mergeSortHelper(Node<T> *head) {
-  if (head == nullptr || head->next == nullptr)
-    return head;
+  if (head == nullptr || head->next == nullptr) return head;
   Node<T> *middle = splitMiddle(head);
   head = mergeSortHelper(head);
   // std::cout << "head: ";
@@ -177,19 +171,42 @@ Node<T> *LinkedList<T>::mergeSortHelper(Node<T> *head) {
   return result;
 }
 
+// Split the list into two halves
+//  return the head of the second half
+//  the first half is the original list
 template <class T>
-void LinkedList<T>::mergeSort() {
-  head = mergeSortHelper(head);
+Node<T> *LinkedList<T>::splitMiddle(Node<T> *head) {
+  Node<T> *slow = head;
+  Node<T> *fast = head->next;
+  Node<T> *result;
+
+  while (fast != nullptr) {
+    fast = fast->next;
+    if (fast == nullptr) break;
+    fast = fast->next;
+    slow = slow->next;
+  }
+  result = slow->next;
+  slow->next = nullptr;
+  return result;
 }
 
+// Recursive sorted merge
 template <class T>
-void LinkedList<T>::printAll(Node<T> *head) {
-  Node<T> *current = head;
-  while (current != nullptr) {
-    std::cout << (current->value) << ' ';
-    current = current->next;
+Node<T> *LinkedList<T>::sortedMerge(Node<T> *l1, Node<T> *l2) {
+  Node<T> *result = nullptr;
+
+  if (l1 == nullptr) return l2;
+  if (l2 == nullptr) return l1;
+
+  if (l1->value <= l2->value) {
+    result = l1;
+    result->next = sortedMerge(l1->next, l2);
+  } else {
+    result = l2;
+    result->next = sortedMerge(l1, l2->next);
   }
-  std::cout << std::endl;
+  return result;
 }
 
 #endif
