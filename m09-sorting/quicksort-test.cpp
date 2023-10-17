@@ -17,8 +17,6 @@ int quickPartition(int *arr, int low, int high) {
     while (arr[high] > pivot) --high;
     if (low >= high) break;
     swap(arr[low], arr[high]);
-    ++low;
-    --high;
   }
   return high;
 }
@@ -30,7 +28,7 @@ void quicksort(int *arr, int size) {
 void quicksortHelper(int *arr, int low, int high) {
   if (low >= high) return;
   int part = quickPartition(arr, low, high);
-  quicksortHelper(arr, low, part);
+  quicksortHelper(arr, low, part - 1);
   quicksortHelper(arr, part + 1, high);
 }
 
