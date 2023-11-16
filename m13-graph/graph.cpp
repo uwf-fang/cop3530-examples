@@ -1,4 +1,5 @@
 #include "graph.hpp"
+
 #include <iostream>
 
 using namespace std;
@@ -13,8 +14,7 @@ bool GraphAdjListVector::isValidID(int id) const {
 }
 
 bool GraphAdjListVector::registerVertices(const vector<string> &labels) {
-  if (!vertices.empty() && vertices.size() != labels.size())
-    return false;
+  if (!vertices.empty() && vertices.size() != labels.size()) return false;
   adjacencyList.clear();
   vertices = labels;
   adjacencyList.resize(labels.size());
@@ -53,45 +53,45 @@ int GraphAdjListVector::getWeight(int id1, int id2) const {
 vector<int> GraphAdjListVector::getNeighbors(int id) const {
   vector<int> neighbors;
   auto &list = adjacencyList.at(id);
-  for (int i = 0; i < list.size(); ++i)
-    neighbors.push_back(list.at(i).first);
+  for (int i = 0; i < list.size(); ++i) neighbors.push_back(list.at(i).first);
   return neighbors;
 }
 
-  ~GraphAdjListArray::GraphAdjListArray() {
-    node *temp;
-    for (int i = 0; i < size; ++i) {
-      node *head = adjList[i];
-      while (head != nullptr) {
-        temp = head;
-        head = head->next;
-        delete temp;
-      }
-    }
-    delete [] adjList;
-    delete [] vertices;
-  }
-  bool GraphAdjListArray::registerVertices(const std::vector<std::string> &labels) {
-    size = labels.size();
-    vertices = new std::string[size];
-    for (int i = 0; i < size; ++i)
-      vertices[i] = labels.at(i);
-    adjList = new node *[size];
-    for (int i = 0; i < size; ++i)
-      adjList[i] = nullptr;
-  }
-  bool GraphAdjListArray::registerEdge(int id1, int id2, int weight) {
-    node *head = adjList[id1];
-    head = new node(id2, weight, head);
-    head = adjList[id2];
-    head = new node(id1, weight, head);
-  }
-  vector<int> GraphAdjListArray::getNeighbors(int id) const {
-    std::vector<int> result;
-    node *head = adjList[id];
+GraphAdjListArray::~GraphAdjListArray() {
+  node *temp;
+  for (int i = 0; i < size; ++i) {
+    node *head = adjList[i];
     while (head != nullptr) {
-      result.push_back(head->destID);
+      temp = head;
       head = head->next;
+      delete temp;
     }
-    return result;
   }
+  delete[] adjList;
+  delete[] vertices;
+}
+
+bool GraphAdjListArray::registerVertices(
+    const std::vector<std::string> &labels) {
+  size = labels.size();
+  vertices = new std::string[size];
+  for (int i = 0; i < size; ++i) vertices[i] = labels.at(i);
+  adjList = new node *[size];
+  for (int i = 0; i < size; ++i) adjList[i] = nullptr;
+}
+
+bool GraphAdjListArray::registerEdge(int id1, int id2, int weight) {
+  node *head = adjList[id1];
+  head = new node(id2, weight, head);
+  head = adjList[id2];
+  head = new node(id1, weight, head);
+}
+vector<int> GraphAdjListArray::getNeighbors(int id) const {
+  std::vector<int> result;
+  node *head = adjList[id];
+  while (head != nullptr) {
+    result.push_back(head->destID);
+    head = head->next;
+  }
+  return result;
+}
