@@ -1,6 +1,5 @@
 #include <iostream>
 #include "set.hpp"
-#include "hashtable.hpp"
 
 using namespace std;
 
