@@ -20,6 +20,22 @@ int HashMap::hashFunction(int key) const {
   return key % capacity;
 }
 
+void HashMap::resize(int newCapacity) {
+  if (newCapacity <= capacity) return; // no need to resize
+  int oldCapacity = capacity;
+  capacity = newCapacity;
+  Bucket *oldBuckets = buckets;
+  buckets = new Bucket[capacity];
+  for (int i = 0; i < oldCapacity; ++i) {
+    if (!oldBuckets[i].isEmpty()) {
+      int key = oldBuckets[i].getKey();
+      int value = oldBuckets[i].getValue();
+      put(key, value);
+    }
+  }
+  delete [] oldBuckets;
+}
+
 bool HashMap::put(int key, int value) {
   if (size_ == capacity) return false; // full hash table
   if (get(key) != -1) return false; // key already exist

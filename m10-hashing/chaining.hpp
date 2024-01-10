@@ -30,6 +30,7 @@ class HashMap {
  public:
   HashMap(int capacity = 101);
   ~HashMap();
+  void resize(int newCapacity); // rehashing
   void put(int key, int value);
   bool remove(int key);
   int get(int key) const;

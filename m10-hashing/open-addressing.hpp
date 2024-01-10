@@ -41,6 +41,7 @@ class HashMap {
   bool remove(int key);
   int get(int key) const;
   int size() const;
+  void resize(int newCapacity); // rehashing
 };
 
 #endif  // OPEN_ADDRESSING_HPP
