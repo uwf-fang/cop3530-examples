@@ -1,39 +1,42 @@
 #include <iostream>
 using namespace std;
 
-class MyClass {
+class List {
   int size;
   int* arr;
 
  public:
-  MyClass() {
+  List() {
     size = 0;
     arr = nullptr;
   }
 
-  MyClass(int size) {
-    this->size = size;
+  List(int count) {
+    this->size = count;
     // dynamic data
-    arr = new int[size];
+    arr = new int[count];
   }
 
-  MyClass(int size, int initVal) {
-    this->size = size;
-    // dynamic data
-    arr = new int[size];
-    for (int i = 0; i < size; ++i) arr[i] = initVal;
+  List(int count, int value = 0) {
+    this->size = count;
+    arr = new int[count];
+    for (int i = 0; i < count; ++i) arr[i] = value;
   }
 
   // copy constructor
-  MyClass(const MyClass& other);
+  List(const List& other) {
+    size = other.size;
+    arr = new int[size];
+    for (int i = 0; i < size; ++i) arr[i] = other.arr[i];
+  }
 
   // destructor
-  ~MyClass() { delete[] arr; }
+  ~List() { delete[] arr; }
 
-  // Copy assignment operator overlooding
-  // return MyClass & reference to allow assignment to be used in expressions
+  // Copy assignment operator overloading
+  // return List & reference to allow assignment to be used in expressions
   // e.g. cout << (obj1 = obj2) << endl;
-  MyClass& operator=(const MyClass& other) {
+  List& operator=(const List& other) {
     size = other.size;
     delete[] arr;
     arr = new int[size];
@@ -41,19 +44,19 @@ class MyClass {
     return *this;
   }
 
-  int at(int index) const { return arr[index]; }
+  int &at(int index) const { return arr[index]; }
 
   int getSize() const { return size; }
+
+  void print() const {
+    for (int i = 0; i < size; ++i) cout << arr[i] << " ";
+    cout << endl;
+  }
 };
 
-MyClass::MyClass(const MyClass& other) {
-    size = other.size;
-    arr = new int[size];
-    for (int i = 0; i < size; ++i) arr[i] = other.arr[i];
-  }
-
+// Helper functions
 // use the reference parameter will avoid object copy
-void print(const MyClass &obj) {
+void print(const List &obj) {
   // getSize must be const to allow this
   for (int i = 0; i < obj.getSize(); ++i) {
     cout << obj.at(i) << " ";
@@ -62,7 +65,7 @@ void print(const MyClass &obj) {
 }
 
 // will trigger implicit assignment during parameter passing
-void print1(MyClass obj) {
+void print1(List obj) {
   for (int i = 0; i < obj.getSize(); ++i) {
     cout << obj.at(i) << " ";
   }
@@ -70,10 +73,22 @@ void print1(MyClass obj) {
 }
 
 int main() {
-  MyClass obj1(10, 1);
-  MyClass obj2 = obj1;  // implicit call of the copy constructor
-  MyClass obj3(obj1);   // explicit call of the copy constructor
-  MyClass obj4;
-  obj4 = obj1;  // = operator overloading triggered
-  print(obj1);  // copy constructor triggered during the parameter passing
+  List list(5, 10);  // the constructor taking two int values is triggered
+
+  List list2(list);  // copy constructor is triggered
+  List list3;  // the default constructor will be triggered
+
+  list3 = list;  // default assignment operator is triggered
+
+  list.print(); // 10 10 10 10 10
+  list2.print(); // 10 10 10 10 10
+  list3.print(); // 10 10 10 10 10
+
+  list.at(4) = 1; // modify the 5th value
+
+  list.print();  // 10 10 10 10 1
+  list2.print(); // 10 10 10 10 10
+  list3.print(); // 10 10 10 10 10
+
+  return EXIT_SUCCESS;
 }

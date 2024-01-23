@@ -3,16 +3,17 @@
 using namespace std;
 
 // List class
-// Missing copy constructor and copy assignment operator overloading
+//   Only has a destructor
+//   Missing copy constructor and copy assignment operator overloading
 class List {
  private:
   int *array;
   int size;
  public:
   List();
-  List(int repeat, int value);
+  List(int count, int value = 0);
   ~List();
-  void setValue(int index, int value);
+  int &at(int index);
   void print();
 };
 
@@ -21,17 +22,17 @@ List::List() {
   size = 0;
 }
 
-List::List(int repeat, int value) {
-  size = repeat;
+List::List(int count, int value) {
+  size = count;
   array = new int[size];
-  for (int i = 0; i < repeat; ++i)
+  for (int i = 0; i < count; ++i)
     array[i] = value;
 }
 
 List::~List() {delete [] array;}
 
-void List::setValue(int index, int value) {
-  array[index] = value;
+int &List::at(int index) {
+  return array[index];
 }
 
 void List::print() {
@@ -48,16 +49,16 @@ int main() {
 
   list3 = list;  // default assignment operator is triggered
 
-  list.print();
-  list2.print();
-  list3.print();
+  list.print(); // 10 10 10 10 10
+  list2.print(); // 10 10 10 10 10
+  list3.print(); // 10 10 10 10 10
 
-  list.setValue(4, 1);
+  list.at(4) = 1; // modify the 5th value
 
   // Three outputs will be the same with the 5th value modified
-  list.print();
-  list2.print();
-  list3.print();
+  list.print();  // 10 10 10 10 1
+  list2.print(); // 10 10 10 10 1
+  list3.print(); // 10 10 10 10 1
 
   // must add a \n or endl to flush the text to the screen before the crash
   cout << "Expect memory error after because of the double/triple free of the same data.\n";
