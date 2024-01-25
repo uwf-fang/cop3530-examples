@@ -7,6 +7,9 @@ void Node::setVal(int value) {
   this->value = value;
   // (*this).value = value;
 }
+int Node::getVal() {
+  return value;
+}
 
 Grid::Grid() : matrix(nullptr) {}
 

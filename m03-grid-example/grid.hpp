@@ -13,7 +13,7 @@ public:
   Node();
   explicit Node(int value);
   void setVal(int value);
-  int getVal() { return value; }
+  int getVal();
 };
 
 class Grid {
