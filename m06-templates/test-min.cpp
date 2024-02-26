@@ -1,4 +1,4 @@
-#include "template-demo.hpp"
+#include "min.hpp"
 #include <iostream>
 using namespace std;
 

@@ -4,8 +4,8 @@
 using namespace std;
 
 // ============= declarations =======================
-int searchFirst(int array[], int size, int toSearch);
-int searchFirstHelper(int array[], int size, int toSearch, int start);
+int searchFirst(int *array, int size, int toSearch);
+int searchFirstHelper(int *array, int size, int toSearch, int start);
 
 bool areEqualArrays(int *arr1, int size1, int * arr2, int size2);
 bool areEqualArrays1(int *arr1, int size1, int * arr2, int size2);
@@ -17,21 +17,28 @@ bool isPalindromeHelper(int *arr, int left, int right);
 int fibonacci(int n);
 int fibonacciMemorized(int n);
 
-int binarySearch(int arr[], int size, int value);
-int binarySearchHelper(int arr[], int left, int right, int value);
+int binarySearch(int *arr, int size, int value);
+int binarySearchHelper(int *arr, int left, int right, int value);
 
 // ==================== definitions =====================
-int searchFirst(int array[], int size, int toSearch) {
+
+// Compare head element every round
+int searchFirst(int *array, int size, int toSearch) {
   return searchFirstHelper(array, size, toSearch, 0);
 }
 
-int searchFirstHelper(int array[], int size, int toSearch, int start) {
+int searchFirstHelper(int *array, int size, int toSearch, int start) {
   if (array[start] == toSearch) return start;
   if (start >= size - 1)  // hit the end
     return -1;
   return searchFirstHelper(array, size, toSearch, start + 1);
 }
 
+// Compare tail element every round
+int searchFirst1(int *array, int size, int toSearch) {
+  if (size == 0) return -1;
+  else return searchFirst1(array, size - 1, toSearch);
+}
 
 // compare tail element every round
 bool areEqualArrays(int *arr1, int size1, int * arr2, int size2) {
@@ -83,11 +90,11 @@ int fibonacciMemorized(int n, int *memory) {
   return memory[n];
 }
 
-int binarySearch(int arr[], int size, int value) {
+int binarySearch(int *arr, int size, int value) {
   return binarySearchHelper(arr, 0, size - 1, value);
 }
 
-int binarySearchHelper(int arr[], int left, int right, int value) {
+int binarySearchHelper(int *arr, int left, int right, int value) {
   if (left >= right) return -1;
   int mid = (left + right) / 2;
   if (arr[mid] == value) return mid;

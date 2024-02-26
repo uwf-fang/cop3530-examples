@@ -1,3 +1,5 @@
+// This code file is for reading
+
 // search linearly, return on match
 int search(int * arr, int size, int val) {
   for (int i = 0; i < size; ++i)
@@ -5,8 +7,11 @@ int search(int * arr, int size, int val) {
       return i;
   return -1;
 }
-// worst case: T(n) = 1 + n + 1 + n + n + 1 = 3n + 3 = O(n)
-// Best case: T(n) 1 + 1 + 1 + 1 = 4 = O(1)
+// worst case: the if statement always misses
+// T(n) = 1 + n + 1 + n + n + 1 = 3n + 3 = O(n)
+
+// Best case: the if statement matches in the first attempt
+// T(n) 1 + 1 + 1 + 1 = 4 = O(1)
 
 
 // search linearly, continue on match
@@ -21,8 +26,10 @@ int search1(int * arr, int size, int val) {
   }
   return idx;
 }
-// worst case: T(n) = 1 + 1 + 1 + 4 * n + 1 = 4n + 4 = O(n)
-// best case: T(n) = 1 + 1 + 1 + 3 * n + 1 = 3n + 4 = O(n)
+// worst case:
+// T(n) = 1 + 1 + 1 + 4 * n + 1 = 4n + 4 = O(n)
+// best case:
+// T(n) = 1 + 1 + 1 + 3 * n + 1 = 3n + 4 = O(n)
 
 // selection sort
 void sort(int * arr, int size) {

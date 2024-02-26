@@ -1,6 +1,7 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+// Header only module
 template <class T>
 class Vector {
   int size;

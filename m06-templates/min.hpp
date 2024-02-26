@@ -1,7 +1,9 @@
 #ifndef TEMPLATE_DEMO_HPP
 #define TEMPLATE_DEMO_HPP
 
-// function template
+// Header only module
+
+// function templates
 template<typename T>
 T myMin(T, T);
 
@@ -13,24 +15,22 @@ T myMin(T val1, T val2) {
     return val1;
 }
 
-// class template
+// class templates
 template<typename T>
 class Min {
-  private:
   T val1;
   T val2;
-  public:
-  Min(T val1, T val2);
+ public:
+  // Inline constructor
+  // do not need a template clause
+  Min(T val1, T val2): val1(val1), val2(val2) {}
+
+  // method declaration
   T getMin();
 };
 
 // class methods implementations, not inline
-template<typename T>
-Min<T>::Min(T val1, T val2) {
-  this->val1 = val1;
-  this->val2 = val2;
-}
-
+// must have a template clause
 template<typename T>
 T Min<T>::getMin() {
   if (val1 > val2)

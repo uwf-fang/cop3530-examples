@@ -20,7 +20,6 @@ string State::getName() const {
   return name;
 }
 
-
 int main() {
   State *states1; // 1d array of object
 
