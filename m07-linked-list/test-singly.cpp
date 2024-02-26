@@ -23,11 +23,10 @@ void testSinglyLinkedList() {
 
   assert(l1.isEmpty());
   assert(!l1.size());
-  l1.append(new Node<int>(3));
+  l1.prepend(new Node<int>(3));
   assert(l1.size() == 1);
   l1.prepend(new Node<int>(2));
   assert(l1.size() == 2);
-  // l1.print();  // 2 3
 
   assert(l1.search(2) != nullptr);
   Node<int> *new1 = new Node<int>(4);

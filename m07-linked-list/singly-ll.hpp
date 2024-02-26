@@ -3,11 +3,12 @@
 
 #include <iostream>
 
+// A top-level class for a node in a singly-linked list
+// Make instance variables private and provide public methods to access them
 template <class T>
 class Node {
   T value;
   Node<T> *next;
-
  public:
   Node<T>();
   Node<T>(T value) : value(value), next(nullptr) {};
@@ -20,9 +21,9 @@ class Node {
 // A singly-linked list implementing List ADT
 // a head pointer, a tail pointer
 // a next pointer in node class
+// Showing both inline and out-of-line methods for learning purpose
 template <class T>
 class SinglyLinkedList {
- private:
   Node<T> *head;
   Node<T> *tail;
 
@@ -30,7 +31,6 @@ class SinglyLinkedList {
   // out-of-line methods
   void insertAfter(Node<T> *node, Node<T> *newNode);
   void prepend(Node<T> *node);
-  void append(Node<T> *node);
   void remove(Node<T> *node);
   Node<T> *search(T value);
 
@@ -41,44 +41,33 @@ class SinglyLinkedList {
 
   int size() {
     int count = 0;
-    Node<T> *node = head;
-    while (node != nullptr) {
+    Node<T> *curr = head;
+    while (curr != nullptr) {
       ++count;
-      node = node->getNext();
+      curr = curr->getNext();
     }
     return count;
   }
 
-  void print() {
-    Node<T> *node = head;
-    while (node != nullptr) {
-      std::cout << node->getValue() << " ";
-      node = node->getNext();
+  void traverse() {
+    Node<T> *curr = head;
+    while (curr != nullptr) {
+      std::cout << curr->getValue() << " ";
+      curr = curr->getNext();
     }
     std::cout << std::endl;
   }
 
   ~SinglyLinkedList() {
-    Node<T> *node = head;
-    Node<T> *next;
-    while (node != nullptr) {
-      next = node->getNext();
-      delete node;
-      node = next;
+    Node<T> *curr = head;
+    Node<T> *temp;
+    while (curr != nullptr) {
+      temp = curr;
+      curr = curr->getNext();
+      delete temp;
     }
   }
 };
-
-// Append is a special case of insertAfter except for the case when the
-// list is empty
-template <class T>
-void SinglyLinkedList<T>::append(Node<T> *node) {
-  if (head == nullptr) {
-    head = node;
-    tail = node;
-  } else
-    insertAfter(tail, node);
-}
 
 template <class T>
 void SinglyLinkedList<T>::prepend(Node<T> *node) {
@@ -95,7 +84,7 @@ template <class T>
 void SinglyLinkedList<T>::insertAfter(Node<T> *node, Node<T> *newNode) {
   newNode->setNext(node->getNext());
   node->setNext(newNode);
-  if (node == tail) // insert after the last node
+  if (node == tail) // inserting after the last node
     tail = newNode;
 }
 
@@ -103,30 +92,33 @@ template <class T>
 void SinglyLinkedList<T>::remove(Node<T> *node) {
   // Assuming that the node exist in the list
   Node<T> *prevNode;
-  if (node == head) {  // remove first node
+  if (node == head) {  // removing first node
     head = head->getNext();
   } else {
     prevNode = head;
     // find the previous node,
-    // should always able to find a match
-    while (true) {
-      if (prevNode->getNext() == node) break;
+    // assuming always able to find a match
+    while (prevNode->getNext() != node)
       prevNode = prevNode->getNext();
-    }
     prevNode->setNext(node->getNext());
   }
-  if (node == tail) {  // update the tail if the last node is removed
+
+  // removing last node, can happen at the same time as the operations
+  //   covered in the last if-else block
+  if (node == tail)
     tail = prevNode;
-  }
+
+  // ALWAYS delete the node
   delete node;
 }
 
 template <class T>
 Node<T> *SinglyLinkedList<T>::search(T value) {
-  Node<T> *node = head;
-  while (node != nullptr) {
-    if (node->getValue() == value) return node;  // find a match
-    node = node->getNext();
+  Node<T> *curr = head;
+  while (curr != nullptr) {
+    if (curr->getValue() == value)
+      return curr;  // find a match
+    curr = curr->getNext();
   }
   return nullptr;
 }
