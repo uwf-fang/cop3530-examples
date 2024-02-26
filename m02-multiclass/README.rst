@@ -13,18 +13,26 @@ Concepts
 
   * definitions
 
++ module: paired .hpp and .cpp
 + driver
 
   * driver.cpp, main.cpp, or a good name for your app
   * should the main entry of your app (main function)
 
-Building
-========
+Building Configuration
+======================
 + makefile
+
+Code Organization
+=================
++ Store item class as a module
++ Store class as a module
++ test.cpp as a driver
++ no main driver yet
 
 Tips
 ====
-+ only use "using namespace ..." in .cpp file
++ only use "using namespace ..." in .cpp files; never in .hpp files
 + incremental development flow suggestion
 
   * finish StoreItem class

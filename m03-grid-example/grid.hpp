@@ -4,12 +4,10 @@
  * Grid class to demonstrate 2d dynamic array
  *   rule of three methods are implemented
  */
-#include <cmath>
 
 class Node {
-private:
   int value;
-public:
+ public:
   Node();
   explicit Node(int value);
   void setVal(int value);
@@ -17,11 +15,10 @@ public:
 };
 
 class Grid {
-private:
   Node ** matrix;
   int rows;
   int cols;
-public:
+ public:
   Grid();
   Grid(int rows, int cols);
   ~Grid();
