@@ -1,8 +1,7 @@
 /**
- * @file tree.hpp
- * @brief Header only module holding generic tree declarations
- *        Not ready for use
+ * Header only module holding generic tree declarations
  *
+ * WARNING: Declarations only! Not implemented!
  */
 #ifndef TREE_HPP
 #define TREE_HPP

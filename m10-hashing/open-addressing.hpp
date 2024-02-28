@@ -1,8 +1,9 @@
-/*
- * Make a sample hash table
+/**
+ * A hash map (hash table implementation of Map ADT) using open addressing
  * Use simple modulo hash function
- * Use simple linear probing
+ *
  */
+
 
 #ifndef OPEN_ADDRESSING_HPP
 #define OPEN_ADDRESSING_HPP

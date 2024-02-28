@@ -1,6 +1,5 @@
 /**
- * @file bst.hpp
- * @brief Binary search tree class template
+ * Binary search tree class template
  *
  */
 #ifndef BST_HPP

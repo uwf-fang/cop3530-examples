@@ -1,7 +1,8 @@
-/*
- * Make a sample hash table
+/**
+ * A hash map (hash table implementation of Map ADT) using chaining
  * Use simple modulo hash function
- * Use chaining
+ *
+ * WARNING: Declarations only! Not implemented!
  */
 
 #ifndef CHAINING_HPP

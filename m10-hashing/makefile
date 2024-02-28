@@ -1,24 +1,21 @@
-SHELL := /bin/bash
-CXX := g++
-INC := ../utility
-CXXFLAGS := -g -std=c++14 -Wall -Werror=return-type  -Werror=uninitialized \
-			-Wno-sign-compare
-LFLAGS := # linking flags
-HEADERS := $(wildcard *.hpp)
-SRCS := $(wildcard *.cpp)
-OBJS := $(SRCS:.cpp=.o)
-TARGETS := test
-RM := rm -rf
+CXXFLAGS = -Wall -std=c++14
+RM = rm -rf
+TARGETS = test-open
 
-.PHONY: clean
+.PHONY: all clean
 
-all: $(TARGETS)
+test-all : $(TARGETS)
 
-test: $(OBJS)
-	$(CXX) $(LFLAGS) -o $@ $^
+# compile cpp files to object files
+%.o:%.cpp
+	$(CXX) $(CXXFLAGS) -c $<
 
-$(OBJS): %.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) $(INC:%=-I%) -c -o $@ $<
+# link and run all targets
+$(TARGETS): % : %.o
+	$(CXX) -o $@ $^
+	./$@
 
-clean:
-	$(RM) $(TARGETS) $(OBJS) *.gc* *.dSYM
+test-open: test-open.o open-addressing.o
+
+clean :
+	$(RM) $(TARGETS) *.o
