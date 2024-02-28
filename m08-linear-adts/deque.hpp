@@ -25,7 +25,10 @@ class Deque {
  public:
   Deque() : head(nullptr), tail(nullptr), count(0) {}
 
-  ~Deque() { clear(); }
+  ~Deque() {
+    while (!isEmpty())
+      dequeueFront();
+  }
 
   bool isEmpty() const { return count == 0; }
 
@@ -46,7 +49,8 @@ class Deque {
   void enqueueFront(const T& val) {
     Node* new_node = new Node(val);
     if (isEmpty()) {
-      head = tail = new_node;
+      head = new_node;
+      tail = new_node;
     } else {
       new_node->next = head;
       head->prev = new_node;
@@ -58,7 +62,8 @@ class Deque {
   void enqueueBack(const T& val) {
     Node* new_node = new Node(val);
     if (isEmpty()) {
-      head = tail = new_node;
+      head = new_node;
+      tail = new_node;
     } else {
       new_node->prev = tail;
       tail->next = new_node;
@@ -98,7 +103,7 @@ class Deque {
   }
 
   // Returning "const T&" will be more efficient but less intuitive
-  const T& front() const {
+  T front() const {
     if (isEmpty())
       throw std::out_of_range("DoublyLinkedList is isEmpty");
     return head->value;
