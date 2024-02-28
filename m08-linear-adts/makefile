@@ -1,6 +1,6 @@
 CXXFLAGS = -Wall -std=c++14
 RM = rm -rf
-TARGETS = test-singly
+TARGETS = test-deque
 
 .PHONY: all clean
 

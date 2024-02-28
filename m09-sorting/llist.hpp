@@ -1,12 +1,11 @@
 /**
- * @brief A linked list class template with
+ * @brief A singly-linked list class template demonstrating
  *    insertion sort
  *    merge sort
  */
 #ifndef LIST_HPP
 #define LIST_HPP
 
-#include <initializer_list>
 #include <iostream>
 #include <vector>
 
@@ -14,6 +13,7 @@ template <class T>
 struct Node {
   T value;
   Node<T> *next;
+  Node() : value(), next(nullptr) {}
 };
 
 template <class T>
@@ -21,22 +21,21 @@ class LinkedList {
   Node<T> *head;
   // insertion sort helper
   void sortedInsert(Node<T> *node);
-  // merge sort helper
+  // merge sort helpers
   Node<T> *splitMiddle(Node<T> *head);
   Node<T> *sortedMerge(Node<T> *l1, Node<T> *l2);
   Node<T> *mergeSortHelper(Node<T> *head);
-  void printAll(Node<T> *head);
+  void printAll(Node<T> *head) const;
 
  public:
   LinkedList();
   // This method allows initialization using {}
-  LinkedList(std::initializer_list<T> l);
   ~LinkedList();
+  bool isEmpty() const;
   void append(T value);
-  int size();
   void insertionSort();
   void mergeSort();
-  void printAll();
+  void printAll() const;
   std::vector<T> toVector() const;
 };
 
@@ -44,8 +43,8 @@ template <class T>
 LinkedList<T>::LinkedList() : head(nullptr) {}
 
 template <class T>
-LinkedList<T>::LinkedList(std::initializer_list<T> l) : head(nullptr) {
-  for (T v : l) append(v);
+bool LinkedList<T>::isEmpty() const {
+  return head == nullptr;
 }
 
 template <class T>
@@ -60,22 +59,6 @@ LinkedList<T>::~LinkedList() {
 }
 
 template <class T>
-int LinkedList<T>::size() {
-  int size = 0;
-  Node<T> *current = head;
-  while (current != nullptr) {
-    ++size;
-    current = current->next;
-  }
-  return size;
-}
-
-template <class T>
-void LinkedList<T>::printAll() {
-  printAll(head);
-}
-
-template <class T>
 std::vector<T> LinkedList<T>::toVector() const {
   std::vector<T> result;
   Node<T> *current = head;
@@ -87,7 +70,12 @@ std::vector<T> LinkedList<T>::toVector() const {
 }
 
 template <class T>
-void LinkedList<T>::printAll(Node<T> *head) {
+void LinkedList<T>::printAll() const {
+  printAll(head);
+}
+
+template <class T>
+void LinkedList<T>::printAll(Node<T> *head) const {
   Node<T> *current = head;
   while (current != nullptr) {
     std::cout << (current->value) << ' ';
@@ -96,6 +84,8 @@ void LinkedList<T>::printAll(Node<T> *head) {
   std::cout << std::endl;
 }
 
+// Inefficient but works
+// Ideally, we should use doubly linked list with a tail pointer
 template <class T>
 void LinkedList<T>::append(T value) {
   Node<T> *node;

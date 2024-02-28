@@ -15,7 +15,7 @@ class List {
   // Prepend + insertAfter can cover all cases
   //  append + insertBefore can also cover all cases
   void prepend(T value);
-  void addAfter(int index, T value);
+  void insertAfter(int index, T value);
   void remove(T value);
   int search(T value);
   T get(int index);

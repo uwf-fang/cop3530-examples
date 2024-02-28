@@ -1,26 +1,21 @@
-SHELL := /bin/bash
-CXX := g++
-INC := ../utility
-CXXFLAGS := -g -std=c++14 -Wall -Werror=return-type  -Werror=uninitialized \
-			-Wno-sign-compare
-LFLAGS := # linking flags
-HEADERS := $(wildcard *.hpp)
-SRCS := $(wildcard *.cpp)
-OBJS := $(SRCS:.cpp=.o)
-TARGETS := $(basename $(SRCS))
-RM := rm -rf
+CXXFLAGS = -Wall -std=c++14
+RM = rm -rf
+TARGETS = test-quicksort test-ll-sorting
 
-.PHONY: clean
+.PHONY: all clean
 
-all: $(TARGETS)
+test-all : $(TARGETS)
 
-$(TARGETS): %: %.o
-	$(CXX) $(LFLAGS) -o $@ $^
+# compile cpp files to object files
+%.o:%.cpp
+	$(CXX) $(CXXFLAGS) -c $<
 
-$(OBJS): %.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(INC:%=-I%) -c -o $@ $<
+# link and run all targets
+$(TARGETS): % : %.o
+	$(CXX) -o $@ $^
+	./$@
 
-ll-sort-test.o: ll-sort-test.cpp $(HEADERS)
+test-quicksort: test-quicksort.o quicksort.o
 
-clean:
-	$(RM) $(TARGETS) $(OBJS) *.gc* *.dSYM
+clean :
+	$(RM) $(TARGETS) *.o
