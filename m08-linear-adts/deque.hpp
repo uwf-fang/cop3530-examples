@@ -30,13 +30,35 @@ class Deque {
       dequeueFront();
   }
 
+  Deque(const Deque& other): 
+      head(nullptr), 
+      tail(nullptr), 
+      count(0) {
+
+    Node* curr = other.head;
+    while (curr != nullptr) {
+      enqueueBack(curr->value);
+      curr = curr->next;
+    }
+  }
+
+  Deque & operator=(const Deque& other) {
+    clear();
+    Node* curr = other.head;
+    while (curr != nullptr) {
+      enqueueBack(curr->value);
+      curr = curr->next;
+    }
+    return *this;
+  }
+
   bool isEmpty() const { return count == 0; }
 
   int size() const { return count; }
 
   void clear() {
     Node* curr = head;
-    while (curr) {
+    while (curr != nullptr) {
       Node* temp = curr;
       curr = curr->next;
       delete temp;

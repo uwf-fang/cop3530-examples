@@ -43,5 +43,16 @@ void testDoublyLinkedList() {
   deque.enqueueBack(3);
   assert(deque.size() == 3);
 
+  Deque<int> d1(deque);
+  assert(d1.size() == 3);
+  assert(d1.front() == 1);
+  assert(d1.back() == 3);
+
+  Deque<int> d2;
+  d2 = deque;
+  assert(d1.size() == 3);
+  assert(d1.front() == 1);
+  assert(d1.back() == 3);
+  
   cout << "All tests passed!\n";
 }
