@@ -26,13 +26,12 @@ class Deque {
   Deque() : head(nullptr), tail(nullptr), count(0) {}
 
   ~Deque() {
-    while (!isEmpty())
-      dequeueFront();
+    clear();
   }
 
-  Deque(const Deque& other): 
-      head(nullptr), 
-      tail(nullptr), 
+  Deque(const Deque& other):
+      head(nullptr),
+      tail(nullptr),
       count(0) {
 
     Node* curr = other.head;
@@ -57,6 +56,10 @@ class Deque {
   int size() const { return count; }
 
   void clear() {
+    // Alternative way to delete all nodes
+    // while (!isEmpty())
+    //   dequeueFront();
+
     Node* curr = head;
     while (curr != nullptr) {
       Node* temp = curr;
