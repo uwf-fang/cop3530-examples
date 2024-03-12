@@ -41,5 +41,21 @@ void testSinglyLinkedList() {
   assert(l1.search(5) == nullptr);
   // l1.print();  // 2 3 4
   assert(l1.size() == 3);
+
+  // test copy constructor
+  SinglyLinkedList<int> l2(l1);
+  assert(l2.size() == 3);
+  assert(l2.search(2) != nullptr);
+  assert(l2.search(3) != nullptr);
+  assert(l2.search(4) != nullptr);
+
+  // test copy assignment operator
+  SinglyLinkedList<int> l3;
+  l3 = l1;
+  assert(l3.size() == 3);
+  assert(l3.search(2) != nullptr);
+  assert(l3.search(3) != nullptr);
+  assert(l3.search(4) != nullptr);
+
   cout << "All tests passed!\n";
 }

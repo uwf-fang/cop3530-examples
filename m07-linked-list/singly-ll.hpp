@@ -1,3 +1,9 @@
+/**
+ * Demonstration of a list ADT implementation using a singly-linked list
+ *
+ * Header only module for class templates
+ * Both inline and out-of-line methods are shown for learning purpose
+ */
 #ifndef SINGLY_LL_HPP
 #define SINGLY_LL_HPP
 
@@ -37,6 +43,78 @@ class SinglyLinkedList {
   // inline methods
   SinglyLinkedList() : head(nullptr), tail(nullptr) {}
 
+  SinglyLinkedList(const SinglyLinkedList &other) : head(nullptr), tail(nullptr) {
+    // Deep copy
+    Node<T> *curr = head;
+    Node<T> *otherCurr = other.head;
+
+    if (otherCurr == nullptr) {
+      return;
+    }
+
+    head = new Node<T>(otherCurr->getValue());
+    curr = head;
+    otherCurr = otherCurr->getNext();
+
+    while (otherCurr != nullptr) {
+      curr->setNext(new Node<T>(otherCurr->getValue()));
+      curr = curr->getNext();
+      otherCurr = otherCurr->getNext();
+    }
+
+    curr->setNext(nullptr);
+    tail = curr;
+  }
+
+  SinglyLinkedList &operator=(const SinglyLinkedList &other) {
+    if (this == &other) {
+      return *this;
+    }
+
+    // delete all nodes in the current list
+    while (!isEmpty())
+      remove(head);
+    head = nullptr;
+    tail = nullptr;
+
+    // deep copy
+    Node<T> *otherCurr = other.head;
+
+    if (otherCurr == nullptr) {
+      return *this;
+    }
+
+    head = new Node<T>(otherCurr->getValue());
+    Node<T> *curr = head;
+    otherCurr = otherCurr->getNext();
+
+    while (otherCurr != nullptr) {
+      curr->setNext(new Node<T>(otherCurr->getValue()));
+      curr = curr->getNext();
+      otherCurr = otherCurr->getNext();
+    }
+
+    curr->setNext(nullptr);
+    tail = curr;
+
+    return *this;
+  }
+
+  ~SinglyLinkedList() {
+    Node<T> *curr = head;
+    Node<T> *temp;
+    while (curr != nullptr) {
+      temp = curr;
+      curr = curr->getNext();
+      delete temp;
+    }
+
+    // Alternative way to delete all nodes
+
+    // while (!isEmpty()) {
+    //   remove(head);
+    // }
+  }
   bool isEmpty() { return head == nullptr; }
 
   int size() {
@@ -58,17 +136,9 @@ class SinglyLinkedList {
     std::cout << std::endl;
   }
 
-  ~SinglyLinkedList() {
-    Node<T> *curr = head;
-    Node<T> *temp;
-    while (curr != nullptr) {
-      temp = curr;
-      curr = curr->getNext();
-      delete temp;
-    }
-  }
 };
 
+// Out-of-line method definitions
 template <class T>
 void SinglyLinkedList<T>::prepend(Node<T> *node) {
   if (head == nullptr) {  // empty list
