@@ -1,7 +1,7 @@
 #include "set.hpp"
 #include <sstream>
 
-using std::stringstream;
+using namespace std;
 
 Set::Set() {
     capacity = 100;
@@ -75,7 +75,7 @@ bool Set::exist(int value) {
 string Set::to_str() {
     if (size == 0)
         return "";
-    stringstream ss;
+    ostringstream ss;
     for (int i = 0; i < size - 1; ++i)
         ss << storage[i] << " ";
     ss << storage[size - 1];

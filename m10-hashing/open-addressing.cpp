@@ -14,6 +14,28 @@ HashMap::HashMap(int capacity):
     buckets(new Bucket[capacity])
     {}
 
+HashMap::HashMap(const HashMap &other):
+    capacity(other.capacity),
+    size_(other.size_),
+    buckets(new Bucket[capacity]) {
+  for (int i = 0; i < capacity; ++i) {
+    buckets[i] = other.buckets[i];
+  }
+}
+
+HashMap &HashMap::operator=(const HashMap &other) {
+  if (this != &other) {
+    delete[] buckets;
+    capacity = other.capacity;
+    size_ = other.size_;
+    buckets = new Bucket[capacity];
+    for (int i = 0; i < capacity; ++i) {
+      buckets[i] = other.buckets[i];
+    }
+  }
+  return *this;
+}
+
 HashMap::~HashMap() { delete[] buckets; }
 
 int HashMap::hashFunction(int key) const {

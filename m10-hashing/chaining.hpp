@@ -29,7 +29,9 @@ class HashMap {
   Node **buckets;  // 1D array of pointers to linked lists
   int hashFunction(int key) const;
  public:
-  HashMap(int capacity = 101);
+  HashMap(int capacity = 101);  // prime number
+  HashMap(const HashMap &other);
+  HashMap &operator=(const HashMap &other);
   ~HashMap();
   void resize(int newCapacity); // rehashing
   void put(int key, int value);

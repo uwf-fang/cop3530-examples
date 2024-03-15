@@ -37,6 +37,8 @@ class HashMap {
 
  public:
   HashMap(int capacity = 101);  // have default constructor covered
+  HashMap(const HashMap &other);
+  HashMap &operator=(const HashMap &other);
   ~HashMap();
   bool put(int key, int value);
   bool remove(int key);
