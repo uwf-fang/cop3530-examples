@@ -1,7 +1,7 @@
 #include "bst.hpp"
 #include <iostream>
 #include <cassert>
-#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -9,45 +9,41 @@ void testBST() {
   cout << "Testing binary search tree..." << endl;
   BinarySearchTree<int> tree;
 
-  // redirect cout
-  streambuf *old = cout.rdbuf();
-  ostringstream outSS;
-  cout.rdbuf(outSS.rdbuf());
+  cout << "Testing add and traversal" << endl;
+  tree.add(5);
+  assert((vector<int>{5} == tree.inOrderTraversal()));
 
-  tree.insert(5);
-  tree.inOrderTraversal();
-  assert(outSS.str() == "5 \n");
 
-  tree.insert(6);
-  outSS.str("");
-  tree.inOrderTraversal();
-  assert(outSS.str() == "5 6 \n");
+  tree.add(6);
+  assert((vector<int>{5, 6} == tree.inOrderTraversal()));
 
   assert(tree.contains(5));
   assert(tree.contains(6));
 
   tree.remove(5);
-  outSS.str("");
-  tree.inOrderTraversal();
-  assert(outSS.str() == "6 \n");
+  assert((vector<int>{6} == tree.inOrderTraversal()));
   assert(!tree.contains(5));
   assert(tree.contains(6));
 
-  tree.insert(9);
-  tree.insert(7);
-  tree.insert(8);
-  outSS.str("");
-  tree.inOrderTraversalIterative();
-  assert(outSS.str() == "6 7 8 9 \n");
+  tree.add(9);
+  tree.add(7);
+  tree.add(8);
+  assert((vector<int>{6, 7, 8, 9} == tree.inOrderTraversalIterative()));
 
-  // restore cout
-  cout.rdbuf(old);
+  cout << "Testing big three" << endl;
+  BinarySearchTree<int> tree2 = tree;
+  assert((vector<int>{6, 7, 8, 9} == tree2.inOrderTraversal()));
+
+  BinarySearchTree<int> tree3;
+  tree3 = tree;
+  assert((vector<int>{6, 7, 8, 9} == tree3.inOrderTraversal()));
 
   cout << "All tests passed!" << endl;
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
   testBST();
-  return 0;
+
+  return EXIT_SUCCESS;
 }

@@ -1,3 +1,11 @@
+/**
+ * @file priority-queue.hpp
+ * @author Ian Fang
+ * @brief Min heap based min priority queue, wrapper class
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
 #ifndef PRIORITYQUEUE_HPP_
 #define PRIORITYQUEUE_HPP_
 
@@ -5,18 +13,18 @@
 
 template <typename T>
 class PriorityQueue {
-  MinHeap<T> heap;  // MinHeap has the int type as its base type
+  MinHeap<T> heap;
 public:
   void enqueue(T value);
   T dequeue();
   T peek();
   bool isEmpty();
-  int getLength();
+  int getLength();  // Not required by the ADT, but useful for testing
 };
 
 template <typename T>
 void PriorityQueue<T>::enqueue(T value) {
-  heap.insert(value);
+  heap.add(value);
 }
 
 template <typename T>

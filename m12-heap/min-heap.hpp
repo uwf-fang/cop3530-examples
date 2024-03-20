@@ -1,6 +1,6 @@
 #ifndef MIN_HEAP_HPP
 #define MIN_HEAP_HPP
-#include <utility>  // std::swap
+#include <algorithm>
 
 template <typename T>
 class MinHeap {
@@ -16,7 +16,7 @@ class MinHeap {
   MinHeap(const MinHeap &other);
   MinHeap &operator=(const MinHeap &other);
   ~MinHeap();
-  void insert(T value);
+  void add(T value);
   T remove();
   T peek();
   bool isEmpty();
@@ -102,7 +102,7 @@ void MinHeap<T>::percolateDown(int nodeIndex) {
 }
 
 template <typename T>
-void MinHeap<T>::insert(T value) {
+void MinHeap<T>::add(T value) {
   if (length >= capacity) reAllocate();
   array[length] = value;
   percolateUp(length);

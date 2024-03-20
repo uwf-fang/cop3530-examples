@@ -15,6 +15,8 @@ using namespace std;
 
 int main() {
 
+  cout << "Testing priority queue" << endl;
+
   // Test enqueue, dequeue, peek, isEmpty, getLength
   PriorityQueue<int> q;
   q.enqueue(23);

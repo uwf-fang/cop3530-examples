@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS=-std=c++14 -Wall
 LFLAGS=
-TARGETS=test-pq test-heapsort
+TARGETS=test-bst
 HEADERS=$(wildcard *.hpp)
 SRC=$(wildcard *.cpp)
 OBJS=$(SRC:%.cpp=%.o)
@@ -9,11 +9,7 @@ RM=rm -rf
 
 all: $(TARGETS)
 
-test-pq: test-pq.o
-	$(CXX) $(LFLAGS) -o $@ $^
-	./$@
-
-test-heapsort: test-heapsort.o
+test-bst: test-bst.o
 	$(CXX) $(LFLAGS) -o $@ $^
 	./$@
 

@@ -1,22 +1,22 @@
 /**
- * Binary search tree class template
+ * @file bst.hpp
+ * @author Ian Fang
+ *
+ * @brief Binary search tree class template
  *
  */
 #ifndef BST_HPP
 #define BST_HPP
 
-#include <iostream>
 #include <stack>
+#include <vector>
 
-// better than "using namespace std;"
-using std::cout;
-using std::endl;
-using std::stack;
-
+// Binary search tree class template
+// All methods are implemented recursively as possible
 template <typename T>
 class BinarySearchTree {
  private:
-  // private node class
+  // private node class/struct
   struct Node {
     T value;
     Node* left;
@@ -28,24 +28,32 @@ class BinarySearchTree {
 
   void deleteSubtree(Node* root) {
     if (root == nullptr) return;
-    deleteSubtree(root->getLeft());
-    deleteSubtree(root->getRight());
+    deleteSubtree(root->left);
+    deleteSubtree(root->right);
     delete root;
     root = nullptr;
   }
 
-  Node* insertRecursive(Node* node, T value) {
+  Node* copyRecursive(Node* node) {
+    if (node == nullptr) return nullptr;
+    Node* newNode = new Node(node->value);
+    newNode->left = copyRecursive(node->left);
+    newNode->right = copyRecursive(node->right);
+    return newNode;
+  }
+
+  Node* addRecursive(Node* node, T value) {
     if (node == nullptr) return new Node(value);
 
     if (value < node->value)
-      node->left = insertRecursive(node->left, value);
+      node->left = addRecursive(node->left, value);
     else if (value > node->value)
-      node->right = insertRecursive(node->right, value);
+      node->right = addRecursive(node->right, value);
 
     return node;
   }
 
-  bool containsRecursive(Node* node, T value) {
+  bool containsRecursive(Node* node, T value) const {
     if (node == nullptr) return false;
     if (node->value == value) return true;
     if (value < node->value)
@@ -85,14 +93,14 @@ class BinarySearchTree {
     return node;
   }
 
-  void inOrderTraversalRecursive(Node* node) {
+  void inOrderTraversalRecursive(Node* node, std::vector<T>& result) const {
     if (node == nullptr) return;
-    inOrderTraversalRecursive(node->left);
-    cout << node->value << " ";
-    inOrderTraversalRecursive(node->right);
+    inOrderTraversalRecursive(node->left, result);
+    result.push_back(node->value);
+    inOrderTraversalRecursive(node->right, result);
   }
 
-  Node* findMinNode(Node* node) {
+  Node* findMinNode(Node* node) const {
     Node* current = node;
     while (current && current->left != nullptr) current = current->left;
     return current;
@@ -100,11 +108,27 @@ class BinarySearchTree {
 
  public:
   BinarySearchTree() : root(nullptr) {}
+
+  BinarySearchTree(const BinarySearchTree &other) {
+    root = copyRecursive(other.root);
+  }
+
+  BinarySearchTree &operator=(const BinarySearchTree &other) {
+    if (this != &other) {
+      deleteSubtree(root);
+      root = copyRecursive(other.root);
+    }
+    return *this;
+  }
+
+  // Easy way to delete the tree recursively
   // ~BinarySearchTree() { deleteSubtree(root); }
+
+  // destructor using stack
   ~BinarySearchTree() {
     // iterative destructor using stack
     if (root == nullptr) return;  // empty tree
-    stack<Node*> st;
+    std::stack<Node*> st;
     Node* curr = root;
     while (curr != nullptr || !st.empty()) {
       if (curr != nullptr) {
@@ -119,16 +143,19 @@ class BinarySearchTree {
       }
     }
   }
-  void insert(T value) { root = insertRecursive(root, value); }
+
+  void add(T value) { root = addRecursive(root, value); }
   bool contains(T value) { return containsRecursive(root, value); }
   void remove(T value) { root = removeRecursive(root, value); }
-  void inOrderTraversal() {
-    inOrderTraversalRecursive(root);
-    cout << endl;
+  std::vector<T> inOrderTraversal() const {
+    std::vector<T> result;
+    inOrderTraversalRecursive(root, result);
+    return result;
   }
-  void inOrderTraversalIterative() {
+  std::vector<T> inOrderTraversalIterative() {
     // implement using stack
-    stack<Node*> st;
+    std::vector<T> result;
+    std::stack<Node*> st;
     Node* curr = root;
 
     while (curr != nullptr || !st.empty()) {
@@ -138,10 +165,10 @@ class BinarySearchTree {
       }
       curr = st.top();
       st.pop();
-      cout << curr->value << " ";
+      result.push_back(curr->value);
       curr = curr->right;
     }
-    cout << endl;
+    return result;
   }
 };
 
