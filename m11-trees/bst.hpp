@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stack>
 
+// better than "using namespace std;"
 using std::cout;
 using std::endl;
 using std::stack;

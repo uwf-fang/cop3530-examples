@@ -2,17 +2,19 @@
 #define MIN_HEAP_HPP
 #include <utility>  // std::swap
 
-template <class T>
+template <typename T>
 class MinHeap {
   T *array;
   int length;
-  int maxLength;
+  int capacity;
   void reAllocate();
   void percolateUp(int nodeIndex);
   void percolateDown(int nodeIndex);
 
  public:
   MinHeap();
+  MinHeap(const MinHeap &other);
+  MinHeap &operator=(const MinHeap &other);
   ~MinHeap();
   void insert(T value);
   T remove();
@@ -21,25 +23,45 @@ class MinHeap {
   int getLength();
 };
 
-template <class T>
-MinHeap<T>::MinHeap() : array(new T[100]), length(0), maxLength(100) {}
+template <typename T>
+MinHeap<T>::MinHeap() : array(new T[100]), length(0), capacity(100) {}
 
-template <class T>
+template <typename T>
 MinHeap<T>::~MinHeap() {
   delete[] array;
 }
 
-template <class T>
+template <typename T>
+MinHeap<T>::MinHeap(const MinHeap &other)
+    : array(new T[other.capacity]), length(other.length), capacity(other.capacity) {
+  for (int i = 0; i < length; ++i)
+    array[i] = other.array[i];
+}
+
+template <typename T>
+MinHeap<T> &MinHeap<T>::operator=(const MinHeap &other) {
+  if (this != &other) {
+    delete[] array;
+    length = other.length;
+    capacity = other.capacity;
+    array = new T[capacity];
+    for (int i = 0; i < length; ++i)
+      array[i] = other.array[i];
+  }
+  return *this;
+}
+
+template <typename T>
 void MinHeap<T>::reAllocate() {
-  maxLength += 100;
-  T *newArr = new T[maxLength];
-  for (int i = 0; i < maxLength; ++i)
+  capacity += 100;
+  T *newArr = new T[capacity];
+  for (int i = 0; i < capacity; ++i)
     newArr[i] = array[i];
   delete[] array;
   array = newArr;
 }
 
-template <class T>
+template <typename T>
 void MinHeap<T>::percolateUp(int nodeIndex) {
   int parentIndex;
   while (nodeIndex > 0) {
@@ -53,7 +75,7 @@ void MinHeap<T>::percolateUp(int nodeIndex) {
   }
 }
 
-template <class T>
+template <typename T>
 void MinHeap<T>::percolateDown(int nodeIndex) {
   int minIndex;
   int minValue;
@@ -79,16 +101,16 @@ void MinHeap<T>::percolateDown(int nodeIndex) {
   }
 }
 
-template <class T>
+template <typename T>
 void MinHeap<T>::insert(T value) {
-  if (length >= maxLength) reAllocate();
+  if (length >= capacity) reAllocate();
   array[length] = value;
   percolateUp(length);
   ++length;
 }
 
 // Should always check not empty before calling dequeue
-template <class T>
+template <typename T>
 T MinHeap<T>::remove() {
   T value = array[0];
   array[0] = array[length - 1];
@@ -98,17 +120,17 @@ T MinHeap<T>::remove() {
 }
 
 // Should always check not empty before calling dequeue
-template <class T>
+template <typename T>
 T MinHeap<T>::peek() {
   return array[0];
 }
 
-template <class T>
+template <typename T>
 bool MinHeap<T>::isEmpty() {
   return length == 0;
 }
 
-template <class T>
+template <typename T>
 int MinHeap<T>::getLength() {
   return length;
 }

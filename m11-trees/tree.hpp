@@ -5,7 +5,7 @@
  */
 #ifndef TREE_HPP
 #define TREE_HPP
-template <class T>
+template <typename T>
 struct TreeNode {
   T value;
   vector<TreeNode *> children;
@@ -13,7 +13,7 @@ struct TreeNode {
   TreeNode(T value): value(value) {}
 };
 
-template <class T>
+template <typename T>
 struct BinaryTreeNode {
   T value;
   BinaryTreeNode *left;
@@ -22,7 +22,7 @@ struct BinaryTreeNode {
   BinaryTreeNode(T value): value(value), left(nullptr), right(nullptr) {}
 };
 
-template <class T>
+template <typename T>
 class Tree {
   TreeNode *root;
  public:
@@ -33,7 +33,7 @@ class Tree {
   bool contains(T value);
 };
 
-template <class T>
+template <typename T>
 class BinaryTree {
   BinaryTreeNode *root;
  public:

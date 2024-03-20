@@ -9,7 +9,7 @@
  * One wrapper class example
  */
 
-template <class T>
+template <typename T>
 class List {
  public:
   // Prepend + insertAfter can cover all cases
@@ -22,7 +22,7 @@ class List {
   bool isEmpty();
 };
 
-template <class T>
+template <typename T>
 class Stack {
  public:
   void push(T value);
@@ -31,7 +31,7 @@ class Stack {
   bool isEmpty();
 };
 
-template <class T>
+template <typename T>
 class Queue {
  public:
   void enqueue(T value);
@@ -40,7 +40,7 @@ class Queue {
   bool isEmpty();
 };
 
-template <class T>
+template <typename T>
 class Deque {
  public:
   void push_back(T value);
@@ -52,7 +52,7 @@ class Deque {
   bool isEmpty();
 };
 
-template <class T>
+template <typename T>
 class WrapperStack {
   Deque<T> deque;
  public:

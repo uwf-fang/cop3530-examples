@@ -9,14 +9,14 @@
 #include <iostream>
 #include <vector>
 
-template <class T>
+template <typename T>
 struct Node {
   T value;
   Node<T> *next;
   Node() : value(), next(nullptr) {}
 };
 
-template <class T>
+template <typename T>
 class LinkedList {
   Node<T> *head;
   // insertion sort helper
@@ -39,15 +39,15 @@ class LinkedList {
   std::vector<T> toVector() const;
 };
 
-template <class T>
+template <typename T>
 LinkedList<T>::LinkedList() : head(nullptr) {}
 
-template <class T>
+template <typename T>
 bool LinkedList<T>::isEmpty() const {
   return head == nullptr;
 }
 
-template <class T>
+template <typename T>
 LinkedList<T>::~LinkedList() {
   Node<T> *current = head;
   Node<T> *next;
@@ -58,7 +58,7 @@ LinkedList<T>::~LinkedList() {
   }
 }
 
-template <class T>
+template <typename T>
 std::vector<T> LinkedList<T>::toVector() const {
   std::vector<T> result;
   Node<T> *current = head;
@@ -69,12 +69,12 @@ std::vector<T> LinkedList<T>::toVector() const {
   return result;
 }
 
-template <class T>
+template <typename T>
 void LinkedList<T>::printAll() const {
   printAll(head);
 }
 
-template <class T>
+template <typename T>
 void LinkedList<T>::printAll(Node<T> *head) const {
   Node<T> *current = head;
   while (current != nullptr) {
@@ -86,7 +86,7 @@ void LinkedList<T>::printAll(Node<T> *head) const {
 
 // Inefficient but works
 // Ideally, we should use doubly linked list with a tail pointer
-template <class T>
+template <typename T>
 void LinkedList<T>::append(T value) {
   Node<T> *node;
   node = new Node<T>();
@@ -106,7 +106,7 @@ void LinkedList<T>::append(T value) {
 
 // Insertion sort for linked list
 //   is out-of-place
-template <class T>
+template <typename T>
 void LinkedList<T>::insertionSort() {
   Node<T> *newHead = head;
   head = nullptr;
@@ -124,7 +124,7 @@ void LinkedList<T>::insertionSort() {
 
 // An essential part of insertion sort
 // Useful in other algorithms as well
-template <class T>
+template <typename T>
 void LinkedList<T>::sortedInsert(Node<T> *node) {
   // insert to empty list or insert before the first node
   if (head == nullptr || node->value <= head->value) {
@@ -140,12 +140,12 @@ void LinkedList<T>::sortedInsert(Node<T> *node) {
   }
 }
 
-template <class T>
+template <typename T>
 void LinkedList<T>::mergeSort() {
   head = mergeSortHelper(head);
 }
 
-template <class T>
+template <typename T>
 Node<T> *LinkedList<T>::mergeSortHelper(Node<T> *head) {
   if (head == nullptr || head->next == nullptr) return head;
   Node<T> *middle = splitMiddle(head);
@@ -164,7 +164,7 @@ Node<T> *LinkedList<T>::mergeSortHelper(Node<T> *head) {
 // Split the list into two halves
 //  return the head of the second half
 //  the first half is the original list
-template <class T>
+template <typename T>
 Node<T> *LinkedList<T>::splitMiddle(Node<T> *head) {
   Node<T> *slow = head;
   Node<T> *fast = head->next;
@@ -182,7 +182,7 @@ Node<T> *LinkedList<T>::splitMiddle(Node<T> *head) {
 }
 
 // Recursive sorted merge
-template <class T>
+template <typename T>
 Node<T> *LinkedList<T>::sortedMerge(Node<T> *l1, Node<T> *l2) {
   Node<T> *result = nullptr;
 

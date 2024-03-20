@@ -3,7 +3,7 @@
 
 #include "min-heap.hpp"
 
-template <class T>
+template <typename T>
 class PriorityQueue {
   MinHeap<T> heap;  // MinHeap has the int type as its base type
 public:
@@ -14,27 +14,27 @@ public:
   int getLength();
 };
 
-template <class T>
+template <typename T>
 void PriorityQueue<T>::enqueue(T value) {
   heap.insert(value);
 }
 
-template <class T>
+template <typename T>
 T PriorityQueue<T>::dequeue() {
   return heap.remove();
 }
 
-template <class T>
+template <typename T>
 T PriorityQueue<T>::peek() {
   return heap.peek();
 }
 
-template <class T>
+template <typename T>
 bool PriorityQueue<T>::isEmpty() {
   return heap.isEmpty();
 }
 
-template <class T>
+template <typename T>
 int PriorityQueue<T>::getLength() {
   return heap.getLength();
 }

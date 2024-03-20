@@ -6,7 +6,7 @@
  *   Incomplete class template, for demonstration
  */
 
-template<class T>
+template<typename T>
 class Node {
   T value;
   Node * next;
@@ -14,7 +14,7 @@ class Node {
   //...
 };
 
-template<class T>
+template<typename T>
 class BidirectionalNode {
   T value;
   BidirectionalNode * next;
@@ -25,7 +25,7 @@ class BidirectionalNode {
 
 // minimal linked list
 // a single head pointer
-template <class T>
+template <typename T>
 class MinLinkedList {
  private:
   Node<T> * head;
@@ -36,7 +36,7 @@ class MinLinkedList {
 // singly-linked list
 // a head pointer, a tail pointer
 // a next pointer in node class
-template <class T>
+template <typename T>
 class SinglyLinkedList {
  private:
   Node<T> * head;
@@ -48,7 +48,7 @@ class SinglyLinkedList {
 // doubly-linked list
 // a head pointer, a tail pointer
 // a next pointer, a prev pointer in node class
-template <class T>
+template <typename T>
 class DoublyLinkedList {
  private:
   BidirectionalNode<T> * head;

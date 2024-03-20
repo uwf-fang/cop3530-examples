@@ -2,7 +2,7 @@
 #define VECTOR_HPP
 
 // Header only module
-template <class T>
+template <typename T>
 class Vector {
   int size;
   int capacity;
@@ -41,7 +41,7 @@ class Vector {
   T back() { return arr[size - 1]; }
 };
 
-template <class T>
+template <typename T>
 Vector<T> &Vector<T>::operator=(const Vector<T> &other) {
   size = other.size;
   capacity = other.capacity;

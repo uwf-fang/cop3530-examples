@@ -11,7 +11,7 @@
 
 // A top-level class for a node in a singly-linked list
 // Make instance variables private and provide public methods to access them
-template <class T>
+template <typename T>
 class Node {
   T value;
   Node<T> *next;
@@ -28,7 +28,7 @@ class Node {
 // a head pointer, a tail pointer
 // a next pointer in node class
 // Showing both inline and out-of-line methods for learning purpose
-template <class T>
+template <typename T>
 class SinglyLinkedList {
   Node<T> *head;
   Node<T> *tail;
@@ -139,7 +139,7 @@ class SinglyLinkedList {
 };
 
 // Out-of-line method definitions
-template <class T>
+template <typename T>
 void SinglyLinkedList<T>::prepend(Node<T> *node) {
   if (head == nullptr) {  // empty list
     head = node;
@@ -150,7 +150,7 @@ void SinglyLinkedList<T>::prepend(Node<T> *node) {
   }
 }
 
-template <class T>
+template <typename T>
 void SinglyLinkedList<T>::insertAfter(Node<T> *node, Node<T> *newNode) {
   newNode->setNext(node->getNext());
   node->setNext(newNode);
@@ -158,7 +158,7 @@ void SinglyLinkedList<T>::insertAfter(Node<T> *node, Node<T> *newNode) {
     tail = newNode;
 }
 
-template <class T>
+template <typename T>
 void SinglyLinkedList<T>::remove(Node<T> *node) {
   // Assuming that the node exist in the list
   Node<T> *prevNode;
@@ -182,7 +182,7 @@ void SinglyLinkedList<T>::remove(Node<T> *node) {
   delete node;
 }
 
-template <class T>
+template <typename T>
 Node<T> *SinglyLinkedList<T>::search(T value) {
   Node<T> *curr = head;
   while (curr != nullptr) {
