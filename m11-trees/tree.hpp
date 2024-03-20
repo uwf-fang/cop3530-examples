@@ -38,7 +38,7 @@ class Tree {
   Tree(const Tree &other);
   Tree &operator=(const Tree &other);
   ~Tree();
-  void add(T value);
+  void insert(T value);
   void remove(T value);
   bool contains(T value);
 };
@@ -51,7 +51,7 @@ class BinaryTree {
   BinaryTree(const BinaryTree &other);
   BinaryTree &operator=(const BinaryTree &other);
   ~BinaryTree();
-  void add(T value);
+  void insert(T value);
   void remove(T value);
   bool contains(T value);
   void printInOrder() const;

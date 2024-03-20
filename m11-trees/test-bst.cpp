@@ -10,11 +10,11 @@ void testBST() {
   BinarySearchTree<int> tree;
 
   cout << "Testing add and traversal" << endl;
-  tree.add(5);
+  tree.insert(5);
   assert((vector<int>{5} == tree.inOrderTraversal()));
 
 
-  tree.add(6);
+  tree.insert(6);
   assert((vector<int>{5, 6} == tree.inOrderTraversal()));
 
   assert(tree.contains(5));
@@ -25,9 +25,9 @@ void testBST() {
   assert(!tree.contains(5));
   assert(tree.contains(6));
 
-  tree.add(9);
-  tree.add(7);
-  tree.add(8);
+  tree.insert(9);
+  tree.insert(7);
+  tree.insert(8);
   assert((vector<int>{6, 7, 8, 9} == tree.inOrderTraversalIterative()));
 
   cout << "Testing big three" << endl;

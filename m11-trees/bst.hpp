@@ -144,7 +144,7 @@ class BinarySearchTree {
     }
   }
 
-  void add(T value) { root = addRecursive(root, value); }
+  void insert(T value) { root = addRecursive(root, value); }
   bool contains(T value) { return containsRecursive(root, value); }
   void remove(T value) { root = removeRecursive(root, value); }
   std::vector<T> inOrderTraversal() const {
@@ -172,4 +172,4 @@ class BinarySearchTree {
   }
 };
 
-#endif  // BST_HPP
+#endif // BST_HPP
