@@ -7,17 +7,33 @@
 using namespace std;
 
 int main() {
-  int size = 10;
-  int *arr = new int[size];
 
-  for (int run = 0; run < 3; ++ run) {
-    for (int i = 0; i < size; ++i) arr[i] = i + 1;
-    shuffle(arr, arr + size, default_random_engine(0));
-    assert(!is_sorted(arr, arr + size));
-    quicksort(arr, size);
-    assert(is_sorted(arr, arr + size));
+  const int SIZE = 11;
+  const int RUNS = 10;
+  const int MAX_VAL = 6;  // less than SIZE to ensure duplicates
+
+  // random numbers between 1 and SIZE inclusive
+  random_device rd;
+  mt19937 gen(rd());
+  uniform_int_distribution<int> dis(1, MAX_VAL);
+
+  int *arr = new int[SIZE];
+
+  // Test quicksort
+  cout << "Testing quicksort..." << endl;
+  for (int run = 0; run < RUNS; ++ run) {
+    for (int i = 0; i < SIZE; ++i) arr[i] = dis(gen);
+    // regenerate if the array is accidentally sorted
+    if (!is_sorted(arr, arr + SIZE)) {
+      run--;
+      continue;
+    }
+    quicksort(arr, SIZE);
+    assert(is_sorted(arr, arr + SIZE));
     cout << "Run " << run << " passed!" << endl;
   }
+
+  delete[] arr;
 
   return EXIT_SUCCESS;
 }
