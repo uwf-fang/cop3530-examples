@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <random>
 #include <vector>
+#include <iterator>
 
 using namespace std;
 
@@ -15,33 +16,49 @@ using namespace std;
 // Convert the linked list to a vector and check if it is sorted
 int main(int argc, char const *argv[]) {
 
-  LinkedList<int> llist;
+  const int SIZE = 13;
+  const int RUNS = 10;
+  const int MAX_VAL = 9;  // less than SIZE to ensure duplicates
 
-  int repeat = 3;
-  int size = 10;
-  vector<int> arr(size);
+  // random numbers between 1 and SIZE inclusive
+  random_device rd;
+  mt19937 gen(rd());
+  uniform_int_distribution<int> dis(1, MAX_VAL);
+
+  vector<int> initial(SIZE);
+  LinkedList<int> llist1, llist2;
 
   // Test insertion sort
-  for (int run = 0; run < repeat; ++run) {
-    for (int i = 0; i < size; ++i) arr[i] = i + 1;
-    shuffle(arr.begin(), arr.end(), default_random_engine(0));
-    for (int i = 0; i < size; ++i) llist.append(arr.at(i));
-    assert(!is_sorted(arr.begin(), arr.end()));
-    llist.insertionSort();
-    vector<int> llist_arr = llist.toVector();
-    assert(is_sorted(llist_arr.begin(), llist_arr.end()));
-    cout << "Insertion sort run " << run << " passed!" << endl;
-  }
+  for (int run = 0; run < RUNS; ++run) {
+    for (int i = 0; i < SIZE; ++i) initial.at(i) = dis(gen);
+    llist1.reset();
+    llist2.reset();
+    for (int i = 0; i < SIZE; ++i) {
+      llist1.append(initial.at(i));
+      llist2.append(initial.at(i));
+    }
+    // regenerate if the array is accidentally sorted
+    if (is_sorted(initial.begin(), initial.end())) {
+      --run;
+      continue;
+    }
+    // copy(initial.begin(), initial.end(), ostream_iterator<int>(cout, " "));
+    // cout << endl;
+    llist1.insertionSort();
+    llist2.mergeSort();
+    sort(initial.begin(), initial.end());
+    vector<int> result1 = llist1.toVector();
+    vector<int> result2 = llist2.toVector();
 
-  // Test merge sort
-  for (int run = 0; run < repeat; ++run) {
-    for (int i = 0; i < size; ++i) arr[i] = i + 1;
-    shuffle(arr.begin(), arr.end(), default_random_engine(0));
-    for (int i = 0; i < size; ++i) llist.append(arr.at(i));
-    assert(!is_sorted(arr.begin(), arr.end()));
-    llist.mergeSort();
-    vector<int> llist_arr = llist.toVector();
-    assert(is_sorted(llist_arr.begin(), llist_arr.end()));
+    // copy(initial.begin(), initial.end(), ostream_iterator<int>(cout, " "));
+    // cout << endl;
+    // copy(result1.begin(), result1.end(), ostream_iterator<int>(cout, " "));
+    // cout << endl;
+    // copy(result2.begin(), result2.end(), ostream_iterator<int>(cout, " "));
+    // cout << endl;
+    assert(initial == result1);
+    cout << "Insertion sort run " << run << " passed!" << endl;
+    assert(initial == result2);
     cout << "Merge sort run " << run << " passed!" << endl;
   }
 

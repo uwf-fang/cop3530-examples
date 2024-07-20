@@ -10,7 +10,7 @@ int main() {
 
   const int SIZE = 11;
   const int RUNS = 10;
-  const int MAX_VAL = 6;  // less than SIZE to ensure duplicates
+  const int MAX_VAL = 9;  // less than SIZE to ensure duplicates
 
   // random numbers between 1 and SIZE inclusive
   random_device rd;
@@ -24,7 +24,7 @@ int main() {
   for (int run = 0; run < RUNS; ++ run) {
     for (int i = 0; i < SIZE; ++i) arr[i] = dis(gen);
     // regenerate if the array is accidentally sorted
-    if (!is_sorted(arr, arr + SIZE)) {
+    if (is_sorted(arr, arr + SIZE)) {
       run--;
       continue;
     }

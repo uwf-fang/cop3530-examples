@@ -31,6 +31,7 @@ class LinkedList {
   LinkedList();
   // This method allows initialization using {}
   ~LinkedList();
+  void reset();
   bool isEmpty() const;
   void append(T value);
   void insertionSort();
@@ -48,7 +49,7 @@ bool LinkedList<T>::isEmpty() const {
 }
 
 template <typename T>
-LinkedList<T>::~LinkedList() {
+void LinkedList<T>::reset() {
   Node<T> *current = head;
   Node<T> *next;
   while (current != nullptr) {
@@ -56,6 +57,12 @@ LinkedList<T>::~LinkedList() {
     delete current;
     current = next;
   }
+  head = nullptr;
+}
+
+template <typename T>
+LinkedList<T>::~LinkedList() {
+  reset();
 }
 
 template <typename T>
