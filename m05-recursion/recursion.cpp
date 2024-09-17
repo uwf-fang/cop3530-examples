@@ -35,9 +35,10 @@ int searchFirstHelper(int *array, int size, int toSearch, int start) {
 }
 
 // Compare tail element every round
-int searchFirst1(int *array, int size, int toSearch) {
+int searchLast(int *array, int size, int toSearch) {
   if (size == 0) return -1;
-  else return searchFirst1(array, size - 1, toSearch);
+  if (array[size - 1] == toSearch) return size - 1;
+  else return searchLast(array, size - 1, toSearch);
 }
 
 // compare tail element every round
