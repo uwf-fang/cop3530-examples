@@ -9,7 +9,7 @@
 template<typename T>
 class Node {
   T value;
-  Node * next;
+  Node<T> * next;
  public:
   //...
 };
@@ -17,8 +17,8 @@ class Node {
 template<typename T>
 class BidirectionalNode {
   T value;
-  BidirectionalNode * next;
-  BidirectionalNode * prev;
+  BidirectionalNode<T> * next;
+  BidirectionalNode<T> * prev;
  public:
   //...
 };

@@ -16,8 +16,8 @@ class Node {
   T value;
   Node<T> *next;
  public:
-  Node<T>();
-  Node<T>(T value) : value(value), next(nullptr) {};
+  Node<T>(): next(nullptr) {}
+  Node<T>(T value) : value(value), next(nullptr) {}
   void setNext(Node<T> *next) { this->next = next; }
   Node<T> *getNext() { return next; }
   T getValue() { return value; }
@@ -44,70 +44,48 @@ class SinglyLinkedList {
   SinglyLinkedList() : head(nullptr), tail(nullptr) {}
 
   SinglyLinkedList(const SinglyLinkedList &other) : head(nullptr), tail(nullptr) {
+    if (other.head == nullptr) return;
+    deepCopy(other.head);
+  }
+
+  void deepCopy(Node<T> *srcHead) {
     // Deep copy
     Node<T> *curr = head;
-    Node<T> *otherCurr = other.head;
-
-    if (otherCurr == nullptr) {
-      return;
-    }
+    Node<T> *otherCurr = srcHead;
 
     head = new Node<T>(otherCurr->getValue());
     curr = head;
     otherCurr = otherCurr->getNext();
 
     while (otherCurr != nullptr) {
-      curr->setNext(new Node<T>(otherCurr->getValue()));
-      curr = curr->getNext();
+      T v = otherCurr->getValue();
+      Node<T> *newNode = new Node<T>(v);
+      curr->setNext(newNode);
+      curr = newNode;
       otherCurr = otherCurr->getNext();
     }
 
-    curr->setNext(nullptr);
     tail = curr;
+  }
+
+  void deleteList(Node<T> *head) {
+    if (head == nullptr) return;
+    Node<T> *next = head->getNext();
+    delete head;
+    deleteList(next);
   }
 
   SinglyLinkedList &operator=(const SinglyLinkedList &other) {
     if (this == &other) {
       return *this;
     }
-
-    // delete all nodes in the current list
-    while (!isEmpty())
-      remove(head);
-    head = nullptr;
-    tail = nullptr;
-
-    // deep copy
-    Node<T> *otherCurr = other.head;
-
-    if (otherCurr == nullptr) {
-      return *this;
-    }
-
-    head = new Node<T>(otherCurr->getValue());
-    Node<T> *curr = head;
-    otherCurr = otherCurr->getNext();
-
-    while (otherCurr != nullptr) {
-      curr->setNext(new Node<T>(otherCurr->getValue()));
-      curr = curr->getNext();
-      otherCurr = otherCurr->getNext();
-    }
-
-    curr->setNext(nullptr);
-    tail = curr;
-
+    deleteList(head);
+    deepCopy(other.head);
     return *this;
   }
 
   ~SinglyLinkedList() {
-    Node<T> *curr = head;
-    Node<T> *temp;
-    while (curr != nullptr) {
-      temp = curr;
-      curr = curr->getNext();
-      delete temp;
-    }
+    deleteList(head);
 
     // Alternative way to delete all nodes
 
@@ -136,6 +114,15 @@ class SinglyLinkedList {
     std::cout << std::endl;
   }
 
+  Node<T> *at(int index) {
+    Node<T> *curr = head;
+    for (int i = 0; i < index; ++i) {
+      if (curr == nullptr) return nullptr;
+      curr = curr -> getNext();
+    }
+    return curr;
+  }
+
 };
 
 // Out-of-line method definitions
@@ -148,6 +135,12 @@ void SinglyLinkedList<T>::prepend(Node<T> *node) {
     node->setNext(head);
     head = node;
   }
+
+  // node->setNext(head);
+  // head = node;
+  // if (tail == nullptr)
+  //   tail = node;
+
 }
 
 template <typename T>
@@ -161,7 +154,7 @@ void SinglyLinkedList<T>::insertAfter(Node<T> *node, Node<T> *newNode) {
 template <typename T>
 void SinglyLinkedList<T>::remove(Node<T> *node) {
   // Assuming that the node exist in the list
-  Node<T> *prevNode;
+  Node<T> *prevNode = nullptr;
   if (node == head) {  // removing first node
     head = head->getNext();
   } else {
