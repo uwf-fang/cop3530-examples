@@ -8,31 +8,43 @@
 #ifndef CHAINING_HPP
 #define CHAINING_HPP
 
-class Node {
-  int key;
-  int value;
-  Node *next;
- public:
-  Node();
-  Node(int key, int value);
-  int getKey() const;
-  int getValue() const;
-  void setNext(Node *next);
-  Node *getNext() const;
-};
+#include <list>
+#include <vector>
 
 // HashMap
 // chaining
-class HashMap {
+class HashMap1 {
+  struct Node {
+    int key;
+    int value;
+    Node *next;
+  };
   int capacity;
   int size;
   Node **buckets;  // 1D array of pointers to linked lists
   int hashFunction(int key) const;
  public:
-  HashMap(int capacity = 101);  // prime number
-  HashMap(const HashMap &other);
-  HashMap &operator=(const HashMap &other);
-  ~HashMap();
+  HashMap1(int capacity = 101);  // prime number
+  HashMap1(const HashMap1 &other);
+  HashMap1 &operator=(const HashMap1 &other);
+  ~HashMap1();
+  void resize(int newCapacity); // rehashing
+  void put(int key, int value);
+  bool remove(int key);
+  int get(int key) const;
+  int size() const;
+};
+
+// HashMap
+// chaining using vector and lists
+class HashMap2 {
+  std::vector<std::list<std::pair<int, int>>> buckets;
+  int capacity;
+  int size;
+  int hashFunction(int key) const;
+ public:
+  HashMap2(int capacity = 101);  // prime number
+  ~HashMap2();
   void resize(int newCapacity); // rehashing
   void put(int key, int value);
   bool remove(int key);
