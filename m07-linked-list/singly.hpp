@@ -4,6 +4,7 @@
 #define SINGLY_HPP
 
 #include <iostream>
+#include <stdexcept>
 
 // Node structure for singly-linked list
 template <typename T>
@@ -140,6 +141,15 @@ class SinglyLinkedList {
       ++idx;
     }
     return -1; // not found
+  }
+
+  T get(int index) const {
+    if (index < 0 || index >= size_) throw std::out_of_range("Index out of bounds");
+    Node<T> *curr = head;
+    for (int i = 0; i < index; ++i) {
+      curr = curr->next;
+    }
+    return curr->data;
   }
 
   int size() const { return size_; }

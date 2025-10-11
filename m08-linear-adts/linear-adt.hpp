@@ -3,7 +3,7 @@
 
 /**
  * Describe Linear ADTs as C++ class template
- *   Only public methods
+ *   Only shown public methods
  *   Incomplete class template, for demonstration
  *
  * One wrapper class example
@@ -12,13 +12,12 @@
 template <typename T>
 class List {
  public:
-  // Prepend + insertAfter can cover all cases
-  //  append + insertBefore can also cover all cases
-  void prepend(T value);
-  void insertAfter(int index, T value);
+  void append(T value);
+  void insertBefore(int index, T value);
   void remove(T value);
   int search(T value);
   T get(int index);
+  int size();
   bool isEmpty();
 };
 

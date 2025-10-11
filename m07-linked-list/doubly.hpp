@@ -4,6 +4,7 @@
 #define DOUBLY_HPP
 
 #include <iostream>
+#include <stdexcept>
 
 // Node structure for doubly-linked list
 template <typename T>
@@ -137,6 +138,17 @@ class DoublyLinkedList {
       ++idx;
     }
     return -1;
+  }
+
+  // Get the value at the specified index
+  T get(int index) const {
+    if (index < 0 || index >= size_)
+      throw std::out_of_range("Index out of bounds");
+    DNode<T>* curr = head;
+    for (int i = 0; i < index; ++i) {
+      curr = curr->next;
+    }
+    return curr->data;
   }
 
   // Returns the number of elements in the list

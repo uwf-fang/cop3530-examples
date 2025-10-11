@@ -4,12 +4,11 @@
 #include <stdexcept>
 
 // An example of a Deque implemented as a doubly-linked list
-//
 // Optional method: size()
-//
 // It has all functionalities of a Queue and a Stack
 template <typename T>
 class Deque {
+  // Using nested class for Node
   struct Node {
     T value;
     Node* next;
