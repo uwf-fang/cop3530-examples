@@ -1,19 +1,19 @@
 CXXFLAGS = -Wall -std=c++14
 RM = rm -rf
-TARGETS = test-singly
 
-.PHONY: all clean
+.PHONY: clean
 
-test-all : $(TARGETS)
+test: test.o
+	$(CXX) $(CXXFLAGS) -o $@ $^
+	./$@
+
+# link and run all targets
+test.o: test.cpp singly.hpp doubly.hpp
+	$(CXX) $(CXXFLAGS) -c $<
 
 # compile cpp files to object files
 %.o:%.cpp
 	$(CXX) $(CXXFLAGS) -c $<
 
-# link and run all targets
-$(TARGETS): % : %.o
-	$(CXX) -o $@ $^
-	./$@
-
 clean :
-	$(RM) $(TARGETS) *.o
+	$(RM) test *.o
