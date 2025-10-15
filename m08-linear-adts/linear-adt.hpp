@@ -51,22 +51,4 @@ class Deque {
   bool isEmpty();
 };
 
-template <typename T>
-class WrapperStack {
-  Deque<T> deque;
- public:
-  void push(T value) {
-    deque.push_front(value);
-  }
-  T pop() {
-    return deque.pop_front();
-  }
-  T peek() {
-    return deque.peek_front();
-  }
-  bool isEmpty() {
-    return deque.isEmpty();
-  }
-};
-
 #endif // LINEAR_ADT_HPP

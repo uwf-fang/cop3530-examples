@@ -19,10 +19,10 @@ class Deque {
 
   Node* head;
   Node* tail;
-  int count;
+  int size_;
 
  public:
-  Deque() : head(nullptr), tail(nullptr), count(0) {}
+  Deque() : head(nullptr), tail(nullptr), size_(0) {}
 
   ~Deque() {
     clear();
@@ -31,10 +31,10 @@ class Deque {
   Deque(const Deque& other):
       head(nullptr),
       tail(nullptr),
-      count(0) {
+      size_(0) {
 
     Node* curr = other.head;
-    while (curr != nullptr) {
+    while (curr) {
       enqueueBack(curr->value);
       curr = curr->next;
     }
@@ -43,16 +43,16 @@ class Deque {
   Deque & operator=(const Deque& other) {
     clear();
     Node* curr = other.head;
-    while (curr != nullptr) {
+    while (curr) {
       enqueueBack(curr->value);
       curr = curr->next;
     }
     return *this;
   }
 
-  bool isEmpty() const { return count == 0; }
+  bool isEmpty() const { return size_ == 0; }
 
-  int size() const { return count; }
+  int size() const { return size_; }
 
   void clear() {
     // Alternative way to delete all nodes
@@ -60,14 +60,14 @@ class Deque {
     //   dequeueFront();
 
     Node* curr = head;
-    while (curr != nullptr) {
+    while (curr) {
       Node* temp = curr;
       curr = curr->next;
       delete temp;
     }
     head = nullptr;
     tail = nullptr;
-    count = 0;
+    size_ = 0;
   }
 
   void enqueueFront(const T& val) {
@@ -80,7 +80,7 @@ class Deque {
       head->prev = new_node;
       head = new_node;
     }
-    ++count;
+    ++size_;
   }
 
   void enqueueBack(const T& val) {
@@ -93,7 +93,7 @@ class Deque {
       tail->next = new_node;
       tail = new_node;
     }
-    ++count;
+    ++size_;
   }
 
   T dequeueFront() {
@@ -107,7 +107,7 @@ class Deque {
     else
       head->prev = nullptr;
     delete temp;
-    --count;
+    --size_;
     return value;
   }
 
@@ -122,7 +122,7 @@ class Deque {
     else
       tail->next = nullptr;
     delete temp;
-    --count;
+    --size_;
     return value;
   }
 
