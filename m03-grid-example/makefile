@@ -14,3 +14,6 @@ grid-driver : grid-driver.o grid.o
 
 clean :
 	$(RM) $(TARGETS) *.o
+
+test-memory : grid-driver
+	valgrind --leak-check=full ./grid-driver

@@ -7,6 +7,7 @@
 
 class Node {
   int value;
+
  public:
   Node();
   explicit Node(int value);
@@ -15,15 +16,16 @@ class Node {
 };
 
 class Grid {
-  Node ** matrix;
+  Node** matrix;
   int rows;
   int cols;
+
  public:
   Grid();
   Grid(int rows, int cols);
   ~Grid();
-  Grid(const Grid & other);
-  Grid& operator=(const Grid & other);
+  Grid(const Grid& other);
+  Grid& operator=(const Grid& other);
   int getRows();
   int getCols();
   void print();
