@@ -17,16 +17,21 @@ Grid::Grid() : matrix(nullptr), rows(0), cols(0) {}
 Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
   // allocate memory for 2d array
   matrix = new Node*[rows];
-  for (int i = 0; i < rows; ++i) matrix[i] = new Node[cols];
+  for (int i = 0; i < rows; ++i)
+    matrix[i] = new Node[cols];
 
   // initialize values
   for (int i = 0; i < rows; ++i)
-    for (int j = 0; j < cols; ++j) matrix[i][j].setVal(cols * i + j);
+    for (int j = 0; j < cols; ++j)
+      matrix[i][j].setVal(cols * i + j);
 }
 
 Grid::~Grid() {
-  for (int i = 0; i < rows; ++i) delete[] matrix[i];
-  delete[] matrix;
+  if (matrix != nullptr) {
+    for (int i = 0; i < rows; ++i) delete[] matrix[i];
+    delete[] matrix;
+    matrix = nullptr;
+  }
 }
 
 Grid::Grid(const Grid& other) {

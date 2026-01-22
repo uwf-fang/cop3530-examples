@@ -10,7 +10,7 @@ int main()
   cout << "Rows: " << grid.getRows() << " Cols: " << grid.getCols() << endl;
   grid.print();
 
-  Grid grid2(grid);
+  Grid grid2(grid);  // Grid grid2 = grid;
   cout << "Printing grid2 from copy constructor" << endl;
   grid2.print();
 
