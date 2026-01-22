@@ -42,6 +42,7 @@ class List {
   }
 
   List& operator=(const List& other) {
+    if (this == &other) return *this; // self-assignment check
     size = other.size;
     delete[] arr;
     arr = new int[size];
@@ -50,6 +51,7 @@ class List {
   }
 
   List& operator=(List&& other) {  // move = operator
+    if (this == &other) return *this; // self-assignment check
     size = other.size;
     delete[] arr;
     arr = other.arr;
@@ -72,7 +74,7 @@ void print(const List &obj) {
   cout << endl;
 }
 
-// will trigger implicit assignment during parameter passing
+// An example that will trigger implicit assignment during parameter passing
 void print1(List obj) {
   for (int i = 0; i < obj.getSize(); ++i) {
     cout << obj.at(i) << " ";

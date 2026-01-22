@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// A simple fixed-size list class to demonstrate
+// the Rule of Three in C++
 class List {
   int size;
   int* arr;
@@ -36,7 +38,10 @@ class List {
   // Copy assignment operator overloading
   // return List & reference to allow assignment to be used in expressions
   // e.g. cout << (obj1 = obj2) << endl;
+  // You can choose to make it a void function if you don't need such usage
+  //    of such kind of usage or chain assignment like obj1 = obj2 = obj3;
   List& operator=(const List& other) {
+    if (this == &other) return *this; // self-assignment check
     size = other.size;
     delete[] arr;
     arr = new int[size];
@@ -44,6 +49,7 @@ class List {
     return *this;
   }
 
+  // access element at index by reference
   int &at(int index) const { return arr[index]; }
 
   int getSize() const { return size; }
