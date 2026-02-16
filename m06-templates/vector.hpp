@@ -43,6 +43,7 @@ class Vector {
 
 template <typename T>
 Vector<T> &Vector<T>::operator=(const Vector<T> &other) {
+  if (this == &other) return *this;  // self-assignment check
   size = other.size;
   capacity = other.capacity;
   delete[] arr;
