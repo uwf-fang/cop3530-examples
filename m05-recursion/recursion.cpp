@@ -28,10 +28,18 @@ int searchFirst(int *array, int size, int toSearch) {
 }
 
 int searchFirstHelper(int *array, int size, int toSearch, int start) {
-  if (array[start] == toSearch) return start;
-  if (start >= size - 1)  // hit the end
+  if (start >= size)  // hit the end
     return -1;
+  if (array[start] == toSearch) return start;
   return searchFirstHelper(array, size, toSearch, start + 1);
+}
+
+// Use default parameter to avoid helper function
+int searchFirst1(int *array, int size, int toSearch, int start = 0) {
+  if (start >= size)  // hit the end
+    return -1;
+  if (array[start] == toSearch) return start;
+  return searchFirst1(array, size, toSearch, start + 1);
 }
 
 // Compare tail element every round
