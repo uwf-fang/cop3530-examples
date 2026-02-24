@@ -8,7 +8,7 @@ test: test.o
 	./$@
 
 # link and run all targets
-test.o: test.cpp singly.hpp doubly.hpp
+test.o: test.cpp singly.hpp doubly.hpp doubly-recursive.hpp
 	$(CXX) $(CXXFLAGS) -c $<
 
 # compile cpp files to object files
