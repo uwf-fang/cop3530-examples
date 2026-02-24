@@ -44,30 +44,30 @@ class DoublyLinkedList1 {
     return newNode;
   }
 
-  void insertHelper(DNode* node, int index, T data) {
+  DNode* locateNodeByIndexHelper(DNode* node, int index) const {
+    if (node == nullptr) return nullptr;
+    if (index == 0) return node;
+    return locateNodeByIndexHelper(node->next, index - 1);
+  }
+
+  // Not a recursive function
+  void insertBeforeHelper(DNode* node, T data) {
     if (node == nullptr) return;
 
-    if (index == 0) {
-      DNode* newNode = new DNode(data);
-      newNode->prev = node->prev;
-      newNode->next = node;
+    DNode* newNode = new DNode(data);
+    newNode->prev = node->prev;
+    newNode->next = node;
 
-      if (node->prev) {
-        node->prev->next = newNode;
-      } else {
-        head = newNode;
-      }
-
-      node->prev = newNode;
-      return;
+    if (node->prev) {
+      node->prev->next = newNode;
+    } else {
+      head = newNode;
     }
 
-    insertHelper(node->next, index - 1, data);
+    node->prev = newNode;
   }
 
  public:
-  DoublyLinkedList1() : head(nullptr), tail(nullptr), size_(0) {}
-
   void append(T data) {
     DNode* newNode = new DNode(data);
     if (head == nullptr) {
@@ -80,6 +80,8 @@ class DoublyLinkedList1 {
     }
     ++size_;
   }
+
+  DoublyLinkedList1() : head(nullptr), tail(nullptr), size_(0) {}
 
   void traverse() {
     traverseHelper(head);
@@ -99,7 +101,8 @@ class DoublyLinkedList1 {
       return;
     }
 
-    insertHelper(head, index, data);
+    DNode* nodeToInsertBefore = locateNodeByIndexHelper(head, index);
+    insertBeforeHelper(nodeToInsertBefore, data);
     ++size_;
   }
 
